@@ -29,4 +29,9 @@ Aplikasi ini menyediakan fitur-fitur seperti manajemen stok barang, kategori, su
     <td><strong>Randy Dinky Saputra</strong></td>
     <td><a href="https://github.com/DinkyTrady">@DinkyTrady</a></td>
   </tr> <!-- Sampai sini -->
-</table>
+<tr> <!-- Duplicate bagian ini -->
+    <td><img src="https://avatars.githubusercontent.com/u/207850645?s=96&v=4" width="60" style="border-radius: 50%;" /></td>
+    <td><strong>Brian Evan Fahrezy</strong></td>
+    <td><a href="https://github.com/brianevan22">@brianevan22</a></td>
+  </tr> <!-- Sampai sini -->
+  </table>
