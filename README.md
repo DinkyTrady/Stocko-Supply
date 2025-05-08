@@ -34,4 +34,9 @@ Aplikasi ini menyediakan fitur-fitur seperti manajemen stok barang, kategori, su
     <td><strong>Brian Evan Fahrezy</strong></td>
     <td><a href="https://github.com/brianevan22">@brianevan22</a></td>
   </tr> <!-- Sampai sini -->
+  <tr> <!-- Duplicate bagian ini -->
+    <td><img src="https://avatars.githubusercontent.com/u/144525698?v=4" width="60" style="border-radius: 50%;" /></td>
+    <td><strong>Ello Adrian Hariadi</strong></td>
+    <td><a href="https://github.com/Driannnn">@Driannnn</a></td>
+  </tr> <!-- Sampai sini -->
   </table>
