@@ -54,4 +54,9 @@ Aplikasi ini menyediakan fitur-fitur seperti manajemen stok barang, kategori, su
     <td><strong>Najwa Chava Safiera</strong></td>
     <td><a href="https://github.com/sh3vaya">@sh3vaya</a></td>
   </tr> <!-- Sampai sini -->
+  <tr> <!-- Duplicate bagian ini -->
+    <td><img src="https://avatars.githubusercontent.com/u/208132438?v=4" width="60" style="border-radius: 50%;" /></td>
+    <td><strong>Diky Ari Setiyawan</strong></td>
+    <td><a href="https://github.com/DikyArs">@DikyArs</a></td>
+  </tr> <!-- Sampai sini -->
   </table>
