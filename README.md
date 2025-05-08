@@ -44,4 +44,9 @@ Aplikasi ini menyediakan fitur-fitur seperti manajemen stok barang, kategori, su
     <td><strong>Mochammad Abid Sunaryo</strong></td>
     <td><a href="https://github.com/Libeddd">@Libeddd</a></td>
   </tr> <!-- Sampai sini -->
+  <tr> <!-- Duplicate bagian ini -->
+    <td><img src="https://avatars.githubusercontent.com/u/207870361?v=4" width="60" style="border-radius: 50%;" /></td>
+    <td><strong>Mia Audina Ika Apriliani</strong></td>
+    <td><a href="https://github.com/MyaruL">@MyaruL</a></td>
+  </tr> <!-- Sampai sini -->
   </table>
