@@ -8,10 +8,10 @@
 		<version>3.4.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.warehouse</groupId>
-	<artifactId>app</artifactId>
+	<groupId>com.example</groupId>
+	<artifactId>warehouse</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>app</name>
+	<name>warehouse</name>
 	<description>Warehouse web app that uses java spring boot for the framework</description>
 	<url/>
 	<licenses>
