@@ -34,4 +34,29 @@ Aplikasi ini menyediakan fitur-fitur seperti manajemen stok barang, kategori, su
     <td><strong>Brian Evan Fahrezy</strong></td>
     <td><a href="https://github.com/brianevan22">@brianevan22</a></td>
   </tr> <!-- Sampai sini -->
+  <tr> <!-- Duplicate bagian ini -->
+    <td><img src="https://avatars.githubusercontent.com/u/144525698?v=4" width="60" style="border-radius: 50%;" /></td>
+    <td><strong>Ello Adrian Hariadi</strong></td>
+    <td><a href="https://github.com/Driannnn">@Driannnn</a></td>
+  </tr> <!-- Sampai sini -->
+  <tr> <!-- Duplicate bagian ini -->
+    <td><img src="https://avatars.githubusercontent.com/u/174584123?v=4" width="60" style="border-radius: 50%;" /></td>
+    <td><strong>Mochammad Abid Sunaryo</strong></td>
+    <td><a href="https://github.com/Libeddd">@Libeddd</a></td>
+  </tr> <!-- Sampai sini -->
+  <tr> <!-- Duplicate bagian ini -->
+    <td><img src="https://avatars.githubusercontent.com/u/207870361?v=4" width="60" style="border-radius: 50%;" /></td>
+    <td><strong>Mia Audina Ika Apriliani</strong></td>
+    <td><a href="https://github.com/MyaruL">@MyaruL</a></td>
+  </tr> <!-- Sampai sini -->
+  <tr> <!-- Duplicate bagian ini -->
+    <td><img src="https://avatars.githubusercontent.com/u/181125174?v=4" width="60" style="border-radius: 50%;" /></td>
+    <td><strong>Najwa Chava Safiera</strong></td>
+    <td><a href="https://github.com/sh3vaya">@sh3vaya</a></td>
+  </tr> <!-- Sampai sini -->
+  <tr> <!-- Duplicate bagian ini -->
+    <td><img src="https://avatars.githubusercontent.com/u/208132438?v=4" width="60" style="border-radius: 50%;" /></td>
+    <td><strong>Diky Ari Setiyawan</strong></td>
+    <td><a href="https://github.com/DikyArs">@DikyArs</a></td>
+  </tr> <!-- Sampai sini -->
   </table>
