@@ -1,4 +1,4 @@
-package com.example.warehouse.models;
+package com.teamtwo.stocko_supply.models;
 
 public class Item {
 

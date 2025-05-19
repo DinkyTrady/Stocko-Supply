@@ -8,10 +8,10 @@
 		<version>3.4.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>warehouse</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>warehouse</name>
+	<groupId>com.teamtwo</groupId>
+	<artifactId>stocko-supply</artifactId>
+	<version>0.1.0-SNAPSHOT</version>
+	<name>stocko-supply</name>
 	<description>Warehouse web app that uses java spring boot for the framework</description>
 	<url/>
 	<licenses>
@@ -43,7 +43,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
-			<optional>true</optional>
+			<!-- <optional>true</optional> -->
 		</dependency>
 		<dependency>
 			<groupId>com.mysql</groupId>
@@ -55,6 +55,16 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>jquery</artifactId>
+      <version>3.7.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>bootstrap</artifactId>
+      <version>5.3.5</version>
+    </dependency>
 	</dependencies>
 
 	<build>

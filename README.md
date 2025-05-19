@@ -1,6 +1,6 @@
-# 📦 Warehouse-App
+# 📦 Stocko Supply
 
-Warehouse-Apps adalah aplikasi web berbasis Java Spring Boot yang dirancang untuk membantu pengelolaan gudang (warehouse management).
+Stocko Supply adalah aplikasi web berbasis Java Spring Boot yang dirancang untuk membantu pengelolaan gudang (warehouse management).
 Aplikasi ini menyediakan fitur-fitur seperti manajemen stok barang, kategori, supplier, dan pelacakan keluar/masuk barang secara efisien dan real-time.
 
 ## Fitur Utama
