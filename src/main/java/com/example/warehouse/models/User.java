@@ -2,16 +2,25 @@ package com.example.warehouse.models;
 
 public class User {
 
-    private String nama;
+    private String username;
     private String password;
     private String role;
 
-    public void setNama(String nama) {
-        this.nama = nama;
+    public User() {
     }
 
-    public String getNama() {
-        return nama;
+    public User(String nameInput, String passwd, String roleInput) {
+        this.username = nameInput;
+        this.password = passwd;
+        this.role = roleInput;
+    }
+
+    public void setUsername(String nama) {
+        this.username = nama;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public void setPassword(String password) {
