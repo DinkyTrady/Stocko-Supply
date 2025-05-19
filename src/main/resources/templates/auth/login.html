@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login - Stocko Supply</title>
+    <link rel="stylesheet" th:href="@{/auth/login-style.css}" />
+  </head>
+  <body>
+    <div class="stars"></div>
+    <div class="mountains"></div>
+    <div class="trees"></div>
+
+    <div class="login-container">
+      <h2>Login Stocko Supply</h2>
+      <div id="error-message" class="error-message" style="display: none"></div>
+
+      <form id="loginForm" onsubmit="return handleLogin(event)">
+        <div class="input-group">
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Username"
+            required
+          />
+        </div>
+        <div class="input-group">
+          <div class="password-wrapper">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
+            <span class="password-toggle view" id="togglePassword"></span>
+          </div>
+        </div>
+        <button type="submit" class="login-btn">Login</button>
+      </form>
+    </div>
+
+    <script th:src="@{/js/login.js}"></script>
+  </body>
+</html>

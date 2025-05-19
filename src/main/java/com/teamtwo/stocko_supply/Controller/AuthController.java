@@ -1,4 +1,4 @@
-package com.teamtwo.stocko_supply.controller;
+package com.teamtwo.stocko_supply.Controller;
 
 import com.teamtwo.stocko_supply.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
