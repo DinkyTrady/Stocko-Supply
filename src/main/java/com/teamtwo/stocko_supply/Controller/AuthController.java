@@ -1,25 +1,24 @@
-package com.example.warehouse.Controller;
+package com.teamtwo.stocko_supply.controller;
 
+import com.teamtwo.stocko_supply.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.example.warehouse.service.UserService;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/auth")
-class LoginController {
+public class AuthController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/login")
+    @GetMapping("/login")
     public String loginForm(HttpServletRequest request, Model model) {
+        // Check if user is already logged in
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("loggedInUser") != null) {
             return "redirect:/";
@@ -28,15 +27,17 @@ class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String username, @RequestParam String password, HttpServletRequest request,
+    public String login(@RequestParam String username,
+            @RequestParam String password,
+            HttpServletRequest request,
             Model model) {
         if (username == null || username.isEmpty()) {
-            model.addAttribute("error", "Username perlu diisi!");
+            model.addAttribute("error", "Username tidak boleh kosong");
             return "auth/login";
         }
 
-        if (password == null || username.isEmpty()) {
-            model.addAttribute("error", "Username perlu diisi!");
+        if (password == null || password.isEmpty()) {
+            model.addAttribute("error", "Password tidak boleh kosong");
             return "auth/login";
         }
 
@@ -45,8 +46,7 @@ class LoginController {
             session.setAttribute("loggedInUser", username);
             return "redirect:/";
         }
-
-        model.addAttribute("error", "Username atau Password salah!");
-        return "redirect:/";
+        model.addAttribute("error", "Username atau password salah!");
+        return "auth/login";
     }
 }
