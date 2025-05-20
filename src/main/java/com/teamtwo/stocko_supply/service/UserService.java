@@ -1,6 +1,7 @@
 package com.teamtwo.stocko_supply.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,9 @@ public class UserService {
 
     public User login(String username, String password) {
         return userRepository.findByUsernameAndPassword(username, password);
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }
