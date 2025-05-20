@@ -1,13 +1,12 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Warehouse | Home</title>
-    <link href="../templates/css/style.css" rel="stylesheet" />
-</head>
-<body>
-    <img src="../templates/img/gradient.png" alt="gradient"></img>
-    <h1>hello</h1>
-</body>
+  <head
+    th:insert="~{ fragments/head :: common_header(~{::title},~{::style},_) }"
+  >
+    <title>Home | Stocko Supply</title>
+    <style></style>
+  </head>
+  <body>
+    <h1>Hello</h1>
+  </body>
 </html>
