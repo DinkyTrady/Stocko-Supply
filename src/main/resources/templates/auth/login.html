@@ -2,44 +2,63 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login - Stocko Supply</title>
-    <link rel="stylesheet" th:href="@{/auth/login-style.css}" />
+    <link rel="icon" th:href="@{/assets/favicon.webp}" />
+    <link
+      th:href="@{/webjars/bootstrap/5.3.5/css/bootstrap.min.css}"
+      rel="stylesheet"
+    />
+    <script
+      th:src="@{/webjars/bootstrap/5.3.5/js/bootstrap.bundle.min.js}"
+    ></script>
+    <style>
+      .form-floating {
+        margin-bottom: 15px;
+      }
+    </style>
   </head>
-  <body>
-    <div class="stars"></div>
-    <div class="mountains"></div>
-    <div class="trees"></div>
-
-    <div class="login-container">
-      <h2>Login Stocko Supply</h2>
-      <div id="error-message" class="error-message" style="display: none"></div>
-
-      <form id="loginForm" onsubmit="return handleLogin(event)">
-        <div class="input-group">
+  <body
+    class="d-flex align-items-center vh-100"
+    th:style="'background-image: url('+@{/assets/bg_login.png}+'); background-repeat: no-repeat; background-size:cover;'"
+  >
+    <main
+      class="form-signin m-auto rounded-3"
+      style="width: 22rem; padding: 1.2rem; background-color: #eff1f5"
+    >
+      <form method="post">
+        <img
+          class="mx-auto d-block"
+          th:src="@{/assets/Stocko-Supply_logo_login.svg}"
+          alt="Stocko Supply logo"
+        />
+        <h1 class="h3 mb-3 fw-normal">Please login</h1>
+        <div class="form-floating">
           <input
             type="text"
-            id="username"
-            name="username"
-            placeholder="Username"
-            required
+            class="form-control"
+            id="floatingInput"
+            placeholder="Your username here"
           />
+          <label for="floatingInput">Username</label>
         </div>
-        <div class="input-group">
-          <div class="password-wrapper">
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Password"
-              required
-            />
-            <span class="password-toggle view" id="togglePassword"></span>
-          </div>
+        <div class="form-floating">
+          <input
+            type="password"
+            class="form-control"
+            id="floatingPassword"
+            placeholder="Password"
+          />
+          <label for="floatingPassword">Password</label>
         </div>
-        <button type="submit" class="login-btn">Login</button>
+        <button class="btn btn-primary w-100 py-2" type="submit">login</button>
+        <p
+          th:if="${error}"
+          th:text="${error}"
+          class="mt-5 mb-3 text-body-secondary"
+        ></p>
       </form>
-    </div>
-
-    <script th:src="@{/js/login.js}"></script>
+    </main>
+    <script th:src="@{/webjars/jquery/3.7.1/jquery.js}"></script>
   </body>
 </html>
