@@ -49,4 +49,12 @@ public class AuthController {
         model.addAttribute("error", "Username atau password salah!");
         return "auth/login";
     }
+
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        HttpSession session = request.getSession();
+        session.invalidate();
+        redirectAttributes.addFlashAttribute("success", "Anda berhasil logout");
+        return "redirect:/auth/login";
+    }
 }
