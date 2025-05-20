@@ -18,7 +18,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
 
         // Check if user is logged in
-        Object userSession = request.getSession().getAttribute("loggedInUser");
+        Object userSession = request.getSession().getAttribute("currentUser");
         if (userSession == null) {
             response.sendRedirect("/auth/login");
             return false;

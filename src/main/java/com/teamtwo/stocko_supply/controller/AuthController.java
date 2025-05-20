@@ -1,5 +1,6 @@
 package com.teamtwo.stocko_supply.controller;
 
+import com.teamtwo.stocko_supply.models.User;
 import com.teamtwo.stocko_supply.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,7 @@ public class AuthController {
     public String loginForm(HttpServletRequest request, Model model) {
         // Check if user is already logged in
         HttpSession session = request.getSession(false);
-        if (session != null && session.getAttribute("loggedInUser") != null) {
+        if (session != null && session.getAttribute("currentUser") != null) {
             return "redirect:/";
         }
         return "auth/login";
@@ -41,10 +42,11 @@ public class AuthController {
             return "auth/login";
         }
 
-        if (userService.login(username, password)) {
+        User user = userService.login(username, password);
+        if (user != null) {
             HttpSession session = request.getSession();
-            session.setAttribute("loggedInUser", username);
-            session.setAttribute("userRole", userService.getUserRole(username));
+            session.setAttribute("currentUser", user);
+            System.out.println("success");
             return "redirect:/";
         }
 
