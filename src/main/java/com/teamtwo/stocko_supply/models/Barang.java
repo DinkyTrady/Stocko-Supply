@@ -1,13 +1,38 @@
 package com.teamtwo.stocko_supply.models;
 
-public class Item {
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "barang")
+public class Barang {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(nullable = false)
     private String nama;
     private String kategoriBarang;
     private String keteranganBarang;
 
+    @Column(nullable = false)
     private int jumlahBarang;
+
+    public Barang() {
+    }
+
+    public Barang(Long id, String nama, String kategoriBarang, int jumlahBarang, String keteranganBarang) {
+        this.id = id;
+        this.nama = nama;
+        this.kategoriBarang = kategoriBarang;
+        this.keteranganBarang = keteranganBarang;
+        this.jumlahBarang = jumlahBarang;
+    }
 
     public void setId(Long id) {
         this.id = id;
