@@ -29,7 +29,7 @@ public class AuthController {
             String username = (String) session.getAttribute("username");
             User user = userRepository.findByUsername(username);
             model.addAttribute("currentUser", user);
-            return "redirect:/";
+            return "redirect:/dashboard";
         }
         return "auth/login";
     }
@@ -54,7 +54,7 @@ public class AuthController {
             HttpSession session = request.getSession();
             session.setAttribute("currentUser", user);
             System.out.println("success");
-            return "redirect:/";
+            return "redirect:/dashboard";
         }
 
         model.addAttribute("error", "Username atau password salah!");
@@ -75,7 +75,7 @@ public class AuthController {
         // Check if user is already logged in
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("loggedInUser") != null) {
-            return "redirect:/";
+            return "redirect:/dashboard";
         }
         return "auth/register";
     }

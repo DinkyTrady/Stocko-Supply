@@ -21,6 +21,6 @@ class HomeController {
     public String index(Model model, HttpServletRequest request) {
         userService.prepareCurrentUser(request, model);
 
-        return "index";
+        return "dashboard/index";
     }
 }
