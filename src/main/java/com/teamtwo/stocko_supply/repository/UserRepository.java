@@ -18,4 +18,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findAllByOrderByIdAsc(); // urut berdasarkan ID naik
 
     List<User> findAllByOrderByIdDesc(); // urut berdasarkan ID turun (opsional)
+
+    List<User> findByUsernameContainingIgnoreCase(String username);
 }

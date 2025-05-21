@@ -62,7 +62,6 @@ public class User {
     }
 
     public boolean isAdmin() {
-        System.out.println("Cek role " + role);
         return "admin".equalsIgnoreCase(role);
     }
 }

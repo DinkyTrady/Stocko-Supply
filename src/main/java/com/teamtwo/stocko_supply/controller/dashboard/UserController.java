@@ -33,17 +33,17 @@ public class UserController {
         User currentUser = (User) session.getAttribute("currentUser");
         if (!"admin".equalsIgnoreCase(currentUser.getRole())) {
             model.addAttribute("error", "Anda tidak dapat mengakses url ini");
-            return "redirect:/dashboard/barang";
+            return "redirect:/dashboard";
         }
 
-        boolean isAdmin = currentUser != null && "admin".equalsIgnoreCase(currentUser.getUsername())
-                && "admin".equalsIgnoreCase(currentUser.getRole());
+        boolean isAdmin = "admin".equalsIgnoreCase(currentUser.getRole());
         List<User> users = userRepository.findAllByOrderByIdAsc();
 
         model.addAttribute("users", users);
+        model.addAttribute("currentUser", currentUser);
         model.addAttribute("isAdmin", isAdmin);
 
-        return "dashboard/users/list";
+        return "dashboard/users/index";
     }
 
     @GetMapping("/add")
@@ -52,10 +52,10 @@ public class UserController {
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("currentUser");
         if (currentUser == null || !currentUser.isAdmin()) {
-            return "redirect:/dashboard/barang";
+            return "redirect:/dashboard";
         }
 
-        return "dashboard/users/add";
+        return "dashboard/users/index";
     }
 
     @PostMapping("/add")
@@ -69,26 +69,11 @@ public class UserController {
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("currentUser");
         if (currentUser == null || !currentUser.isAdmin()) {
-            return "redirect:/";
-        }
-
-        if (username == null || username.isEmpty() || username.length() < 3) {
-            model.addAttribute("error", "Username harus minimal 3 karakter");
-            return "dashboard/users/add";
-        }
-
-        if (password == null || password.isEmpty() || password.length() < 8) {
-            model.addAttribute("error", "Password harus minimal 8 karakter");
-            return "dashboard/users/add";
-        }
-
-        if (userService.addUser(username, password, role)) {
-            redirectAttributes.addFlashAttribute("success", "User berhasil ditambahkan!");
-            return "redirect:/dashboard/users";
+            return "redirect:/dashboard";
         }
 
         model.addAttribute("error", "Username sudah digunakan");
-        return "dashboard/users/add";
+        return "dashboard/users/index";
     }
 
     @GetMapping("/edit/{id}")
@@ -99,16 +84,16 @@ public class UserController {
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("currentUser");
         if (currentUser == null || !currentUser.isAdmin()) {
-            return "redirect:/";
+            return "redirect:/dashboard";
         }
 
         User user = userService.getUserById(id);
         if (user == null) {
-            return "redirect:/dashboard/users";
+            return "redirect:/dashboard/users/index";
         }
 
         model.addAttribute("user", user);
-        return "dashboard/users/edit";
+        return "dashboard/users/index";
     }
 
     @PostMapping("/edit/{id}")
@@ -122,7 +107,7 @@ public class UserController {
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("currentUser");
         if (currentUser == null || !currentUser.isAdmin()) {
-            return "redirect:/";
+            return "redirect:/dashboard";
         }
 
         if (userService.updateUser(id, username, password, role)) {
@@ -130,7 +115,7 @@ public class UserController {
         } else {
             redirectAttributes.addFlashAttribute("error", "Gagal memperbarui user");
         }
-        return "redirect:/dashboard/users";
+        return "redirect:/dashboard/users/index";
     }
 
     @PostMapping("/delete/{id}")
@@ -141,7 +126,7 @@ public class UserController {
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("currentUser");
         if (currentUser == null || !currentUser.isAdmin()) {
-            return "redirect:/";
+            return "redirect:/dashboard";
         }
 
         if (userService.deleteUser(id)) {
@@ -149,7 +134,25 @@ public class UserController {
         } else {
             redirectAttributes.addFlashAttribute("error", "Gagal menghapus user");
         }
-        return "redirect:/dashboard/users";
+        return "redirect:/dashboard/users/index";
     }
 
+    @GetMapping("/search")
+    public String searchUsers(@RequestParam("keyword") String keyword, Model model, HttpServletRequest request) {
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+
+        if (currentUser == null || !"admin".equalsIgnoreCase(currentUser.getRole())) {
+            model.addAttribute("error", "Tidak memiliki akses");
+            return "redirect:/dashboard";
+        }
+
+        List<User> users = userRepository.findByUsernameContainingIgnoreCase(keyword);
+
+        model.addAttribute("users", users);
+        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("isAdmin", true);
+        model.addAttribute("keyword", keyword);
+
+        return "dashboard/users/index";
+    }
 }
