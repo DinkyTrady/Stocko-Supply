@@ -1,6 +1,7 @@
 package com.teamtwo.stocko_supply.controller;
 
 import com.teamtwo.stocko_supply.models.User;
+import com.teamtwo.stocko_supply.repository.UserRepository;
 import com.teamtwo.stocko_supply.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,11 +18,17 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/login")
     public String loginForm(HttpServletRequest request, Model model) {
         // Check if user is already logged in
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("currentUser") != null) {
+            String username = (String) session.getAttribute("username");
+            User user = userRepository.findByUsername(username);
+            model.addAttribute("currentUser", user);
             return "redirect:/";
         }
         return "auth/login";
