@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head th:insert="~{fragments/head :: common_header(~{::title},~{::style},_)}">
+    <title>Main Dashboard Admin</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #f8f9fa;
+      }
+
+      .sidebar {
+        width: 250px;
+        background-color: #ffffff;
+        min-height: 100vh;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .sidebar a {
+        padding: 15px;
+        display: block;
+        color: #333;
+        text-decoration: none;
+      }
+
+      .sidebar a:hover,
+      .sidebar .active {
+        background-color: #f1f1f1;
+        font-weight: bold;
+      }
+
+      .header {
+        background-color: #212529;
+        color: white;
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .content {
+        margin-left: 20px;
+        padding: 30px;
+      }
+
+      .card i {
+        font-size: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="d-flex">
+      <!-- Sidebar -->
+      <div class="sidebar d-flex flex-column p-3">
+        <!-- jadikan logo stocko supply -->
+        <h5 class="mb-4">Stocko Supply</h5>
+        <!-- oke -->
+
+        <a href="/dashboard" class="active"
+          ><i class="bi bi-speedometer2"></i> Dashboard</a
+        >
+        <a href="/dashboard/barang"><i class="bi bi-box"></i> Barang</a>
+        <a href="/dashboard/users"><i class="bi bi-people"></i> Pengguna</a>
+        <form th:action="@{/auth/logout}" method="post">
+          <button type="submit" class="btn btn-danger">
+            <i class="bi bi-box-arrow-right"></i>Logout
+          </button>
+        </form>
+      </div>
+
+      <!-- Main Content -->
+      <div class="flex-grow-1">
+        <!-- Header -->
+        <div class="header">
+          <div><i class="bi bi-person-circle me-2"></i>admin</div>
+          <form th:action="@{/auth/logout}" method="post">
+            <button class="btn btn-outline-light btn-sm" type="submit">
+              Logout
+            </button>
+          </form>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+          <h3 class="mb-4">Dashboard Utama</h3>
+
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="card border-primary shadow-sm">
+                <div
+                  class="card-body d-flex justify-content-between align-items-center"
+                >
+                  <div>
+                    <h5 class="card-title mb-1">Total Barang</h5>
+                    <p class="card-text fs-4 fw-bold">12</p>
+                  </div>
+                  <i class="bi bi-box text-primary"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card border-success shadow-sm">
+                <div
+                  class="card-body d-flex justify-content-between align-items-center"
+                >
+                  <div>
+                    <h5 class="card-title mb-1">Total Users</h5>
+                    <p class="card-text fs-4 fw-bold">5</p>
+                  </div>
+                  <i class="bi bi-people text-success"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card border-warning shadow-sm">
+                <div
+                  class="card-body d-flex justify-content-between align-items-center"
+                >
+                  <div>
+                    <h5 class="card-title mb-1">Laporan Hari Ini</h5>
+                    <p class="card-text fs-4 fw-bold">2 barang masuk</p>
+                  </div>
+                  <i class="bi bi-bar-chart-line text-warning"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- jadikan footer -->
+          <!-- Grafik atau informasi tambahan bisa diletakkan di sini -->
+          <div class="mt-5">
+            <h5>Ringkasan Aktivitas</h5>
+            <p>
+              Selamat datang di dashboard admin. Gunakan menu di samping untuk
+              mengelola data barang dan pengguna.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

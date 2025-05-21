@@ -1,9 +1,27 @@
 package com.teamtwo.stocko_supply.models;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, length = 255)
     private String username;
+
+    @Column(nullable = false, length = 255)
     private String password;
+
+    @Column(nullable = false, length = 10)
     private String role;
 
     public User() {
@@ -15,8 +33,8 @@ public class User {
         this.role = roleInput;
     }
 
-    public void setUsername(String nama) {
-        this.username = nama;
+    public Long getId() {
+        return id;
     }
 
     public String getUsername() {
@@ -37,5 +55,10 @@ public class User {
 
     public String getRole() {
         return role;
+    }
+
+    public boolean isAdmin() {
+        System.out.println("Cek role " + role);
+        return "admin".equalsIgnoreCase(role);
     }
 }

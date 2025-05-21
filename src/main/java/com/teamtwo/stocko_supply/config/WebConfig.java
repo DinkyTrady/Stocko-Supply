@@ -10,14 +10,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
     @Autowired
-    private LoginInterceptor loginInterceptor;
+    private AuthInterceptor AuthInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(loginInterceptor)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/assets/**", "/webjars/**");
-        ;
+        registry.addInterceptor(AuthInterceptor)
+                .addPathPatterns("/**");
     }
 
     @Override
