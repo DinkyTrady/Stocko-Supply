@@ -1,39 +1,7 @@
-/*
 
-TemplateMo 574 Mexant
 
-https://templatemo.com/tm-574-mexant
-
-*/
-
-/* ---------------------------------------------
-Table of contents
-------------------------------------------------
-01. font & reset css
-02. reset
-03. global styles
-04. header
-05. banner
-06. features
-07. testimonials
-08. contact
-09. footer
-10. preloader
-11. search
-12. portfolio
-
---------------------------------------------- */
-/* 
----------------------------------------------
-font & reset css
---------------------------------------------- 
-*/
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:100,200,300,400,500,600,700,800,900");
-/* 
----------------------------------------------
-reset
---------------------------------------------- 
-*/
+
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, div
 pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q,
 s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li,
@@ -114,11 +82,7 @@ img {
   overflow: hidden;
 }
 
-/* 
----------------------------------------------
-global styles
---------------------------------------------- 
-*/
+
 html,
 body {
   background: #fff;
@@ -218,11 +182,6 @@ section {
 }
 
 
-/* 
----------------------------------------------
-header
---------------------------------------------- 
-*/
 .background-header {
   background-color: #212741;
   height: 80px!important;
@@ -250,9 +209,14 @@ header
   transition: all .5s ease 0s;
 }
 
-.header-area .main-nav {
+.header-area {
   min-height: 80px;
   background: transparent;
+}
+
+.main-nav {
+  backgroundcolor: #11111b;
+    min-height: 80px;
 }
 
 .header-area .main-nav .logo {
@@ -283,6 +247,19 @@ header
   margin-top: 40px;
   margin-right: 0px;
   background-color: transparent;
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+  position: relative;
+  z-index: 999;
+}
+
+.main-nav .nav {
+  float: right;
+  margin-top: 40px;
+  margin-right: 0px;
+  background-color: #11111b;
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
@@ -663,12 +640,21 @@ header
   .header-area .main-nav .nav li.has-sub ul.sub-menu {
     height: auto;
   }
-  .header-area .main-nav .nav li.has-sub:after {
+  .header-area .main-nav li.has-sub:after {
     color: #3B566E;
     right: 30px;
     font-size: 14px;
     top: 15px;
   }
+  
+.nav {
+    color: #11111b;
+    right: 30px;
+    font-size: 14px;
+    top: 15px;
+  }
+
+
   .header-area .main-nav .nav li.submenu:hover ul, .header-area .main-nav .nav li.submenu:focus ul {
     height: 0px;
   }
@@ -681,11 +667,6 @@ header
 }
 
 
-/* 
----------------------------------------------
-banner
---------------------------------------------- 
-*/
 
 .swiper-container {
   height: calc(100vh - 0px);
@@ -832,11 +813,6 @@ section.services {
 
 
 
-/*
----------------------------------------------
-cta
----------------------------------------------
-*/
 
 section.simple-cta {
   background-image: url(../images/cta-bg.jpg);
@@ -888,13 +864,6 @@ section.simple-cta .buttons .green-button {
   margin-top: 25px;
 }
 
-
-
-/*
----------------------------------------------
-about us
----------------------------------------------
-*/
 
 section.about-us {
   margin-top: 90px;
@@ -1003,11 +972,6 @@ section.about-us .right-content p {
 }
 
 
-/*
----------------------------------------------
-calculator
----------------------------------------------
-*/
 
 section.calculator {
   margin-top: 150px;
@@ -1073,12 +1037,6 @@ section.calculator .section-heading h4 {
 }
 
 
-
-/* 
----------------------------------------------
-testimonials
---------------------------------------------- 
-*/
 
 section.testimonials {
   margin-top: 90px;
@@ -1160,12 +1118,6 @@ section.testimonials .section-heading {
 
 
 
-/* 
----------------------------------------------
-partners
---------------------------------------------- 
-*/
-
 section.partners {
   background-color: #212741;
   padding: 80px 0px;
@@ -1183,12 +1135,6 @@ section.partners .item:hover {
 
 
 
-/* 
----------------------------------------------
-footer 
---------------------------------------------- 
-*/
-
 footer {
   background-color: #181d30;
   text-align: center;
@@ -1205,12 +1151,6 @@ footer p a {
 }
 
 
-
-/* 
----------------------------------------------
-page heading
---------------------------------------------- 
-*/
 
 .page-heading {
   background-image: url(../images/heading-bg.jpg);
@@ -1236,12 +1176,6 @@ page heading
 }
 
 
-
-/* 
----------------------------------------------
-about us page
---------------------------------------------- 
-*/
 
 section.top-section .left-image img {
   border-radius: 10px;
