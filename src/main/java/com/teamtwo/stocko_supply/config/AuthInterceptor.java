@@ -6,14 +6,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 @Component
-public class LoginInterceptor implements HandlerInterceptor {
+public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
         // Allow access to login and registration pages
         String uri = request.getRequestURI();
-        if (uri.startsWith("/auth")) {
+        if (uri.startsWith("/auth") || uri.startsWith("/assets") || uri.startsWith("/webjars")) {
             return true;
         }
 
