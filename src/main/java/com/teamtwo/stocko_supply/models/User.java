@@ -12,16 +12,16 @@ import jakarta.persistence.Table;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 255)
     private String username;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 255)
     private String password;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 10)
     private String role;
 
     public User() {
@@ -58,6 +58,7 @@ public class User {
     }
 
     public boolean isAdmin() {
+        System.out.println("Cek role " + role);
         return "admin".equalsIgnoreCase(role);
     }
 }
