@@ -113,6 +113,7 @@ public class UserController {
 
     @PostMapping("/edit/{id}")
     public String editUser(@PathVariable Long id,
+            @RequestParam String username,
             @RequestParam String password,
             @RequestParam String role,
             RedirectAttributes redirectAttributes,
@@ -124,7 +125,7 @@ public class UserController {
             return "redirect:/";
         }
 
-        if (userService.updateUser(id, password, role)) {
+        if (userService.updateUser(id, username, password, role)) {
             redirectAttributes.addFlashAttribute("success", "User berhasil diperbarui!");
         } else {
             redirectAttributes.addFlashAttribute("error", "Gagal memperbarui user");

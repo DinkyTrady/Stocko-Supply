@@ -59,10 +59,14 @@ public class UserService {
     }
 
     @Transactional
-    public boolean updateUser(Long id, String password, String role) {
+    public boolean updateUser(Long id, String username, String password, String role) {
         User user = getUserById(id);
         if (user == null) {
             return false;
+        }
+
+        if (username != null && !username.isEmpty()) {
+            user.setUsername(username);
         }
 
         if (password != null && !password.isEmpty()) {
@@ -70,6 +74,7 @@ public class UserService {
         }
         user.setRole(role);
         userRepository.save(user);
+
         return true;
     }
 
