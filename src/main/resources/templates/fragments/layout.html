@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en" th:fragment="content(head,main)">
+  <head th:insert="~{fragments/head :: common_header(_,~{::style},_)}">
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #f8f9fa;
+      }
+
+      .sidebar {
+        width: 250px;
+        background-color: #ffffff;
+        min-height: 100vh;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .sidebar a {
+        padding: 15px;
+        display: block;
+        color: #333;
+        text-decoration: none;
+      }
+
+      .sidebar a:hover {
+        background-color: #f1f1f1;
+        font-weight: bold;
+      }
+
+      .header {
+        background-color: #212529;
+        color: white;
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .content {
+        margin-left: 20px;
+        padding: 30px;
+      }
+
+      .card i {
+        font-size: 2rem;
+      }
+    </style>
+  </head>
+  <th:block th:replace="${head}" />
+  <body>
+    <div class="d-flex">
+      <!-- Sidebar -->
+      <div class="sidebar d-flex flex-column p-3">
+        <!-- jadikan logo stocko supply -->
+        <h5 class="mb-4">Stocko Supply</h5>
+        <!-- oke -->
+
+        <a href="/dashboard" class="mb-2 active"
+          ><i class="bi bi-speedometer2"></i> Dashboard</a
+        >
+        <a href="/dashboard/barang" class="mb-2 active"
+          ><i class="bi bi-box"></i> Barang</a
+        >
+        <div th:if="${currentUser.isAdmin()}" class="mb-2 active">
+          <a href="/dashboard/users"> <i class="bi bi-people"></i> Pengguna </a>
+        </div>
+        <form th:action="@{/auth/logout}" method="post">
+          <button type="submit" class="btn btn-danger">
+            <i class="bi bi-box-arrow-right"></i>Logout
+          </button>
+        </form>
+      </div>
+
+      <!-- Main Content -->
+      <div class="flex-grow-1">
+        <!-- Header -->
+        <div class="header">
+          <div>
+            <i class="bi bi-person-circle me-2"></i
+            ><span th:text="${currentUser.username}" style="fw-bold"></span>
+          </div>
+          <form th:action="@{/auth/logout}" method="post">
+            <button class="btn btn-outline-light btn-sm" type="submit">
+              Logout
+            </button>
+          </form>
+        </div>
+        <th:block th:replace="${main}" />
+      </div>
+    </div>
+  </body>
+</html>

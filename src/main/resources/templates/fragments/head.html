@@ -4,8 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title th:replace="${title}">Stocko Supply title basic</title>
-
     <link rel="icon" th:href="@{/assets/favicon.ico}" />
     <link
       th:href="@{/webjars/bootstrap/5.3.5/css/bootstrap.min.css}"
@@ -24,5 +22,6 @@
 
     <script th:src="@{/webjars/jquery/3.7.1/jquery.js}"></script>
     <th:block th:replace="${links}" />
+    <th:block th:replace="${title}" />
   </head>
 </html>
