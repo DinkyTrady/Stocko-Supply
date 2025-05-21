@@ -1,350 +1,365 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Dashboard Admin - Barang</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f8f9fa;
-        }
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #f8f9fa;
+      }
 
-        .sidebar {
-            width: 250px;
-            background-color: #ffffff;
-            min-height: 100vh;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        }
+      .sidebar {
+        width: 250px;
+        background-color: #ffffff;
+        min-height: 100vh;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      }
 
-        .sidebar a {
-            padding: 15px;
-            display: block;
-            color: #333;
-            text-decoration: none;
-        }
+      .sidebar a {
+        padding: 15px;
+        display: block;
+        color: #333;
+        text-decoration: none;
+      }
 
-        .sidebar a:hover, .sidebar .active {
-            background-color: #f1f1f1;
-            font-weight: bold;
-        }
+      .sidebar a:hover,
+      .sidebar .active {
+        background-color: #f1f1f1;
+        font-weight: bold;
+      }
 
-        .header {
-            background-color: #212529;
-            color: white;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+      .header {
+        background-color: #212529;
+        color: white;
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-        .content {
-            margin-left: 20px;
-            padding: 30px;
-        }
+      .content {
+        margin-left: 20px;
+        padding: 30px;
+      }
 
-        .table th {
-            background-color: #212529;
-            color: white;
-        }
+      .table th {
+        background-color: #212529;
+        color: white;
+      }
 
-        .table-striped tbody tr:nth-of-type(odd) {
-            background-color: #f9f9f9;
-        }
+      .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f9f9f9;
+      }
 
-        .selected {
-            background-color: #fdd835 !important;
-        }
+      .selected {
+        background-color: #fdd835 !important;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="d-flex">
-        <!-- Sidebar -->
-        <div class="sidebar d-flex flex-column p-3">
-            <h5 class="mb-4">Stocko Supply</h5>
-            <a href="#" class="active"><i class="bi bi-box"></i> Barang</a>
-            <a href="#"><i class="bi bi-people"></i> Pengguna</a>
-            <a href="#" class="text-danger"><i class="bi bi-box-arrow-right"></i> Logout</a>
+      <!-- Sidebar -->
+      <div class="sidebar d-flex flex-column p-3">
+        <h5 class="mb-4">Stocko Supply</h5>
+        <a href="#" class="active"><i class="bi bi-box"></i> Barang</a>
+        <a href="#"><i class="bi bi-people"></i> Pengguna</a>
+        <a href="#" class="text-danger"
+          ><i class="bi bi-box-arrow-right"></i> Logout</a
+        >
+      </div>
+
+      <!-- Main Content -->
+      <div class="flex-grow-1">
+        <!-- Header -->
+        <div class="header">
+          <div><i class="bi bi-person-circle me-2"></i></div>
+          <button class="btn btn-outline-light btn-sm">Logout</button>
         </div>
 
-        <!-- Main Content -->
-        <div class="flex-grow-1">
-            <!-- Header -->
-            <div class="header">
-                <div><i class="bi bi-person-circle me-2"></i>admin</div>
-                <button class="btn btn-outline-light btn-sm">Logout</button>
+        <!-- Content -->
+        <div class="content">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3>Daftar Barang</h3>
+            <button
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#modalTambah"
+            >
+              <i class="bi bi-plus-circle"></i> Tambah Barang
+            </button>
+          </div>
+
+          <!-- Filter & Sort -->
+          <div class="row mb-3">
+            <div class="col-md-4">
+              <input
+                type="text"
+                id="searchInput"
+                class="form-control"
+                placeholder="Cari berdasarkan nama..."
+              />
             </div>
-
-            <!-- Content -->
-            <div class="content">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h3>Daftar Barang</h3>
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambah"><i class="bi bi-plus-circle"></i> Tambah Barang</button>
-                </div>
-
-                <!-- Filter & Sort -->
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <input type="text" id="searchInput" class="form-control" placeholder="Cari berdasarkan nama...">
-                    </div>
-                    <div class="col-md-3">
-                        <select id="sortBy" class="form-select">
-                            <option value="0">Urutkan berdasarkan ID</option>
-                            <option value="3">Urutkan berdasarkan Jumlah</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <select id="sortOrder" class="form-select">
-                            <option value="asc">Ascending</option>
-                            <option value="desc">Descending</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-secondary w-100" onclick="applySortFilter()">Terapkan</button>
-                    </div>
-                </div>
-
-                <!-- Table -->
-                <table class="table table-bordered table-striped text-center">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nama</th>
-                            <th>Kategori</th>
-                            <th>Jumlah</th>
-                            <th>Status</th>
-                            <th>Keterangan</th>
-                            <th>Tanggal Masuk</th>
-                            <th>Tanggal Update</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabelBarang">
-                        <tr>
-                            <td>1</td>
-                            <td>Tempe</td>
-                            <td>Sandang Pa...</td>
-                            <td>2</td>
-                            <td>Tersedia</td>
-                            <td>Tempe opr...</td>
-                            <td>2024-12-28</td>
-                            <td>-</td>
-                            <td>
-                                <button class="btn btn-warning btn-sm" onclick="editRow(this)"><i class="bi bi-pencil-square"></i></button>
-                                <button class="btn btn-danger btn-sm" onclick="hapusRow(this)"><i class="bi bi-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td>Tempe</td>
-                            <td>Sandang Pa...</td>
-                            <td>2</td>
-                            <td>Tersedia</td>
-                            <td>Tempe ter...</td>
-                            <td>2025-05-13</td>
-                            <td>-</td>
-                            <td>
-                                <button class="btn btn-warning btn-sm" onclick="editRow(this)"><i class="bi bi-pencil-square"></i></button>
-                                <button class="btn btn-danger btn-sm" onclick="hapusRow(this)"><i class="bi bi-trash"></i></button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="col-md-3">
+              <select id="sortBy" class="form-select">
+                <option value="0">Urutkan berdasarkan ID</option>
+                <option value="3">Urutkan berdasarkan Jumlah</option>
+              </select>
             </div>
+            <div class="col-md-3">
+              <select id="sortOrder" class="form-select">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+              </select>
+            </div>
+            <div class="col-md-2">
+              <button
+                class="btn btn-secondary w-100"
+                onclick="applySortFilter()"
+              >
+                Terapkan
+              </button>
+            </div>
+          </div>
+
+          <!-- Table -->
+          <table class="table table-bordered table-striped text-center">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nama</th>
+                <th>Kategori</th>
+                <th>Jumlah</th>
+                <th>Status</th>
+                <th>Keterangan</th>
+                <th>Tanggal Masuk</th>
+                <th>Tanggal Update</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tabelBarang">
+              <tr>
+                <td>1</td>
+                <td>Tempe</td>
+                <td>Sandang Pa...</td>
+                <td>2</td>
+                <td>Tersedia</td>
+                <td>Tempe opr...</td>
+                <td>2024-12-28</td>
+                <td>-</td>
+                <td>
+                  <button
+                    class="btn btn-warning btn-sm"
+                    onclick="editRow(this)"
+                  >
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  <button
+                    class="btn btn-danger btn-sm"
+                    onclick="hapusRow(this)"
+                  >
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>12</td>
+                <td>Tempe</td>
+                <td>Sandang Pa...</td>
+                <td>2</td>
+                <td>Tersedia</td>
+                <td>Tempe ter...</td>
+                <td>2025-05-13</td>
+                <td>-</td>
+                <td>
+                  <button
+                    class="btn btn-warning btn-sm"
+                    onclick="editRow(this)"
+                  >
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  <button
+                    class="btn btn-danger btn-sm"
+                    onclick="hapusRow(this)"
+                  >
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
 
     <!-- Modal Tambah Barang -->
-    <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="modalTambahLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title">Tambah Barang</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="formTambahBarang">
-                        <div class="mb-3">
-                            <label for="namaBarang" class="form-label">Nama Barang</label>
-                            <input type="text" class="form-control" id="namaBarang" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="kategoriBarang" class="form-label">Kategori Barang</label>
-                            <input type="text" class="form-control" id="kategoriBarang" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="jumlahBarang" class="form-label">Jumlah Barang</label>
-                            <input type="number" class="form-control" id="jumlahBarang" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="keteranganBarang" class="form-label">Keterangan Barang</label>
-                            <textarea class="form-control" id="keteranganBarang" rows="2" required></textarea>
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-success">Tambah Barang</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <div
+      class="modal fade"
+      id="modalTambah"
+      tabindex="-1"
+      aria-labelledby="modalTambahLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title">Tambah Barang</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Tutup"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="formTambahBarang">
+              <div class="mb-3">
+                <label for="namaBarang" class="form-label">Nama Barang</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="namaBarang"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="kategoriBarang" class="form-label"
+                  >Kategori Barang</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="kategoriBarang"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="jumlahBarang" class="form-label"
+                  >Jumlah Barang</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="jumlahBarang"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="keteranganBarang" class="form-label"
+                  >Keterangan Barang</label
+                >
+                <textarea
+                  class="form-control"
+                  id="keteranganBarang"
+                  rows="2"
+                  required
+                ></textarea>
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-success">
+                  Tambah Barang
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- Modal Edit Barang -->
-<div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-warning text-white">
-        <h5 class="modal-title">Edit Barang</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-      </div>
-      <div class="modal-body">
-        <form id="formEditBarang">
-          <input type="hidden" id="editIndex">
-          <div class="mb-3">
-            <label for="editNamaBarang" class="form-label">Nama Barang</label>
-            <input type="text" class="form-control" id="editNamaBarang" required>
+    <div
+      class="modal fade"
+      id="modalEdit"
+      tabindex="-1"
+      aria-labelledby="modalEditLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-warning text-white">
+            <h5 class="modal-title">Edit Barang</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Tutup"
+            ></button>
           </div>
-          <div class="mb-3">
-            <label for="editKategoriBarang" class="form-label">Kategori Barang</label>
-            <input type="text" class="form-control" id="editKategoriBarang" required>
+          <div class="modal-body">
+            <form id="formEditBarang">
+              <input type="hidden" id="editIndex" />
+              <div class="mb-3">
+                <label for="editNamaBarang" class="form-label"
+                  >Nama Barang</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editNamaBarang"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editKategoriBarang" class="form-label"
+                  >Kategori Barang</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editKategoriBarang"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editJumlahBarang" class="form-label"
+                  >Jumlah Barang</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="editJumlahBarang"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editKeteranganBarang" class="form-label"
+                  >Keterangan</label
+                >
+                <textarea
+                  class="form-control"
+                  id="editKeteranganBarang"
+                  rows="2"
+                  required
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="editStatusBarang" class="form-label">Status</label>
+                <select class="form-select" id="editStatusBarang" required>
+                  <option value="Tersedia">Tersedia</option>
+                  <option value="Habis">Habis</option>
+                </select>
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-warning">
+                  Simpan Perubahan
+                </button>
+              </div>
+            </form>
           </div>
-          <div class="mb-3">
-            <label for="editJumlahBarang" class="form-label">Jumlah Barang</label>
-            <input type="number" class="form-control" id="editJumlahBarang" required>
-          </div>
-          <div class="mb-3">
-            <label for="editKeteranganBarang" class="form-label">Keterangan</label>
-            <textarea class="form-control" id="editKeteranganBarang" rows="2" required></textarea>
-          </div>
-          <div class="mb-3">
-            <label for="editStatusBarang" class="form-label">Status</label>
-            <select class="form-select" id="editStatusBarang" required>
-              <option value="Tersedia">Tersedia</option>
-              <option value="Habis">Habis</option>
-            </select>
-          </div>
-          <div class="text-center">
-            <button type="submit" class="btn btn-warning">Simpan Perubahan</button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-    function hapusRow(button) {
-        const row = button.closest('tr');
-        row.remove();
-    }
-
-    function editRow(button) {
-        const row = button.closest('tr');
-        const cells = row.querySelectorAll('td');
-        document.getElementById('editIndex').value = row.rowIndex;
-        document.getElementById('editNamaBarang').value = cells[1].textContent.trim();
-        document.getElementById('editKategoriBarang').value = cells[2].textContent.trim();
-        document.getElementById('editJumlahBarang').value = cells[3].textContent.trim();
-        document.getElementById('editStatusBarang').value = cells[4].textContent.trim();
-        document.getElementById('editKeteranganBarang').value = cells[5].textContent.trim();
-
-        const modal = new bootstrap.Modal(document.getElementById('modalEdit'));
-        modal.show();
-    }
-
-  document.getElementById('formTambahBarang').addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const nama = document.getElementById('namaBarang').value.trim();
-    const kategori = document.getElementById('kategoriBarang').value.trim();
-    const jumlah = document.getElementById('jumlahBarang').value.trim();
-    const keterangan = document.getElementById('keteranganBarang').value.trim();
-    const tanggalMasuk = new Date().toISOString().split('T')[0];
-
-    if (!nama || !kategori || !jumlah) {
-        alert('Harap lengkapi semua data barang.');
-        return;
-    }
-
-    const tbody = document.getElementById('tabelBarang');
-    const idBaru = tbody.rows.length > 0
-        ? parseInt(tbody.rows[tbody.rows.length - 1].cells[0].textContent) + 1
-        : 1;
-
-    const newRow = document.createElement('tr');
-    newRow.innerHTML = `
-        <td>${idBaru}</td>
-        <td>${nama}</td>
-        <td>${kategori}</td>
-        <td>${jumlah}</td>
-        <td>Tersedia</td> <!-- Status tetap default -->
-        <td>${keterangan}</td>
-        <td>${tanggalMasuk}</td>
-        <td>-</td>
-        <td>
-            <button class="btn btn-warning btn-sm" onclick="editRow(this)">
-                <i class="bi bi-pencil-square"></i>
-            </button>
-            <button class="btn btn-danger btn-sm" onclick="hapusRow(this)">
-                <i class="bi bi-trash"></i>
-            </button>
-        </td>
-    `;
-
-    tbody.appendChild(newRow);
-
-    this.reset();
-    bootstrap.Modal.getInstance(document.getElementById('modalTambah')).hide();
-    alert('Barang berhasil ditambahkan!');
-});
-
-    document.getElementById('formEditBarang').addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        const index = parseInt(document.getElementById('editIndex').value);
-        const tbody = document.getElementById('tabelBarang');
-        const row = tbody.rows[index - 1]; // dikurangi 1 karena index header
-
-        row.cells[1].textContent = document.getElementById('editNamaBarang').value;
-        row.cells[2].textContent = document.getElementById('editKategoriBarang').value;
-        row.cells[3].textContent = document.getElementById('editJumlahBarang').value;
-        row.cells[4].textContent = document.getElementById('editStatusBarang').value;
-        row.cells[5].textContent = document.getElementById('editKeteranganBarang').value;
-        row.cells[7].textContent = new Date().toISOString().split('T')[0]; // Tanggal update
-
-        alert('Barang berhasil diperbarui! (Simulasi)');
-        const modal = bootstrap.Modal.getInstance(document.getElementById('modalEdit'));
-        modal.hide();
-    });
-
-    function applySortFilter() {
-        const search = document.getElementById('searchInput').value.toLowerCase();
-        const sortBy = parseInt(document.getElementById('sortBy').value);
-        const order = document.getElementById('sortOrder').value;
-        const tbody = document.getElementById('tabelBarang');
-        const rows = Array.from(tbody.querySelectorAll('tr'));
-
-        const filtered = rows.filter(row => row.cells[1].textContent.toLowerCase().includes(search));
-
-        filtered.sort((a, b) => {
-            const valA = a.cells[sortBy].textContent.trim();
-            const valB = b.cells[sortBy].textContent.trim();
-            const numA = isNaN(valA) ? valA : parseFloat(valA);
-            const numB = isNaN(valB) ? valB : parseFloat(valB);
-            return order === 'asc' ? (numA > numB ? 1 : -1) : (numA < numB ? 1 : -1);
-        });
-
-        tbody.innerHTML = '';
-        filtered.forEach(row => tbody.appendChild(row));
-    }
-</script>
-
-</body>
-
+  </body>
 </html>
