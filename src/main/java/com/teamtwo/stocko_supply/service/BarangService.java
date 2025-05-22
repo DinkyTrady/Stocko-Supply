@@ -1,5 +1,6 @@
 package com.teamtwo.stocko_supply.service;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,22 +22,17 @@ public class BarangService {
     }
 
     @Transactional
-    public boolean addNewBarang(String namaBarang, String kategoriBarang, int jumlahBarang, String keteranganBarang) {
-        try {
-            Barang barangExist = barangRepository.findByNama(namaBarang);
-            if (barangExist != null) {
-                return false;
-            }
-
-            Barang barang = new Barang(namaBarang, kategoriBarang, jumlahBarang, keteranganBarang);
-            barangRepository.save(barang);
-
-            return true;
-        } catch (Exception e) {
-            // TODO: handle exception
-            e.printStackTrace();
+    public boolean addNewBarang(String namaBarang, String kategoriBarang, Integer jumlahBarang,
+            String keteranganBarang, ZonedDateTime masuk) {
+        Barang barangExist = barangRepository.findByNama(namaBarang);
+        if (barangExist != null) {
             return false;
         }
+
+        Barang barang = new Barang(namaBarang, kategoriBarang, jumlahBarang, keteranganBarang, masuk);
+        barangRepository.save(barang);
+
+        return true;
     }
 
     @Transactional(readOnly = true)

@@ -41,11 +41,13 @@ public class Barang {
     public Barang() {
     }
 
-    public Barang(String nama, String kategoriBarang, Integer jumlahBarang, String keteranganBarang) {
+    public Barang(String nama, String kategoriBarang, Integer jumlahBarang, String keteranganBarang,
+            ZonedDateTime masuk) {
         this.nama = nama;
         this.kategori = kategoriBarang;
         this.keterangan = keteranganBarang;
         this.jumlah = jumlahBarang;
+        this.masuk = masuk;
     }
 
     public Long getId() {
@@ -86,6 +88,10 @@ public class Barang {
 
     public String getStatus() {
         return status;
+    }
+
+    public void setMasuk(ZonedDateTime masuk) {
+        this.masuk = masuk;
     }
 
     public ZonedDateTime getMasuk() {

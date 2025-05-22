@@ -1,5 +1,7 @@
 package com.teamtwo.stocko_supply.controller.dashboard;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,6 +46,27 @@ public class BarangController {
         model.addAttribute("currentUser", currentUser);
 
         return "/dashboard/barang/index";
+    }
+
+    @PostMapping("/add")
+    public String addBarang(@RequestParam String nama,
+            @RequestParam String kategori,
+            @RequestParam Integer jumlah,
+            @RequestParam String keterangan,
+            RedirectAttributes redirectAttributes,
+            HttpServletRequest request, Model model) {
+        User currentUser = userService.getCurrentUser(request);
+
+        model.addAttribute("currentUser", currentUser);
+
+        if (barangService.addNewBarang(nama, kategori, jumlah, keterangan,
+                ZonedDateTime.now(ZoneId.of("Asia/Jakarta")))) {
+            redirectAttributes.addFlashAttribute("success", "Barang berhasil diperbarui");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Gagal memperbarui barang!");
+        }
+
+        return "redirect:/dashboard/barang";
     }
 
     @GetMapping("/edit/{id}")
@@ -92,6 +115,18 @@ public class BarangController {
             redirectAttributes.addFlashAttribute("error", "Gagal menghapus user");
         }
 
-        return "redirect:/dashboard/users";
+        return "redirect:/dashboard/barang";
+    }
+
+    @GetMapping("/search")
+    public String searchUsers(@RequestParam("keyword") String keyword, Model model, HttpServletRequest request) {
+        User currentUser = userService.getCurrentUser(request);
+        List<Barang> barang = barangRepository.findByNamaContainingIgnoreCase(keyword);
+
+        model.addAttribute("barangs", barang);
+        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("keyword", keyword);
+
+        return "dashboard/barang/index";
     }
 }

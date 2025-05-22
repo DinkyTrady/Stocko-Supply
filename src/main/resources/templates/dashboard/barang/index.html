@@ -92,7 +92,32 @@
         </div>
       </div>
 
-      <h2 class="mb-4">Dashboard Barang</h2>
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Daftar Users</h2>
+        <form
+          class="d-flex"
+          th:action="@{/dashboard/barang/search}"
+          method="get"
+        >
+          <input
+            class="form-control me-2"
+            type="search"
+            name="keyword"
+            placeholder="Cari nama barang..."
+            aria-label="Search"
+            th:value="${keyword}"
+          />
+          <button class="btn btn-outline-success" type="submit">Cari</button>
+        </form>
+        <button
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#addBarangModal"
+        >
+          Tambah Barang
+        </button>
+      </div>
+
       <div class="table-container">
         <table class="table">
           <thead>
@@ -152,6 +177,83 @@
             </tr>
           </tbody>
         </table>
+      </div>
+
+      <!-- Add User Modal -->
+      <div
+        class="modal fade"
+        id="addBarangModal"
+        tabindex="-1"
+        aria-labelledby="addBarangModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form th:action="@{/dashboard/barang/add}" method="post">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addBarangModalLabel">
+                  Tambah Barang
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group mb-3">
+                  <label for="nama">Nama Barang:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="nama"
+                    required
+                    minlength="1"
+                  />
+                </div>
+                <div class="form-group mb-3">
+                  <label for="kategori">Kategori Barang:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="kategori"
+                    required
+                    minlength="8"
+                  />
+                </div>
+                <div class="form-group mb-3">
+                  <label for="jumlah">Jumlah Barang:</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="jumlah"
+                    required
+                  />
+                </div>
+                <div class="form-group mb-3">
+                  <label for="keterangan">Keterangan Barang:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="keterangan"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Batal
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
 
       <!-- Modal Edit Barang -->
@@ -238,11 +340,7 @@
         aria-hidden="true"
       >
         <div class="modal-dialog">
-          <form
-            th:action="@{/dashboard/barang/delete}"
-            method="post"
-            class="modal-content"
-          >
+          <form method="post" id="deleteBarangForm" class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="deleteBarangModalLabel">
                 Hapus Barang
@@ -297,10 +395,13 @@
         const deleteModal = document.getElementById("deleteBarangModal");
         deleteModal.addEventListener("show.bs.modal", function (event) {
           const button = event.relatedTarget;
+          const id = button.getAttribute("data-id");
           const nama = button.getAttribute("data-nama");
           document.getElementById("deleteId").value =
             button.getAttribute("data-id");
           document.getElementById("deleteNama").innerText = nama;
+          document.getElementById("deleteBarangForm").action =
+            `/dashboard/barang/delete/${id}`;
         });
 
         document.addEventListener("DOMContentLoaded", function () {
