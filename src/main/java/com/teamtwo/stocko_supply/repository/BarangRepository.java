@@ -16,4 +16,6 @@ public interface BarangRepository extends JpaRepository<Barang, Integer> {
     List<Barang> findAllByOrderByIdAsc(); // urut berdasarkan ID naik
 
     List<Barang> findAllByOrderByIdDesc(); // urut berdasarkan ID turun (opsional)
+
+    List<Barang> findByNamaContainingIgnoreCase(String nama);
 }
