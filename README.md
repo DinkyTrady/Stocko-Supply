@@ -1,6 +1,11 @@
 # 📦 Stocko Supply
 
-![Stocko Supply logo](./src/main/resources/static/assets/Stocko-Supply_logo.svg)
+<div align="center">
+
+  ![Stocko Supply logo](./src/main/resources/static/assets/Stocko-Supply_logo.svg)
+
+</div>
+
 
 Stocko Supply adalah aplikasi web berbasis Java Spring Boot yang dirancang untuk membantu pengelolaan gudang (warehouse management).
 Aplikasi ini menyediakan fitur-fitur seperti manajemen stok barang, kategori, supplier, dan pelacakan keluar/masuk barang secara efisien dan real-time.
