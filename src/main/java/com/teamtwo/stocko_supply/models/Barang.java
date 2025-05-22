@@ -1,5 +1,7 @@
 package com.teamtwo.stocko_supply.models;
 
+import java.time.ZonedDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,30 +14,38 @@ import jakarta.persistence.Table;
 public class Barang {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 255)
     private String nama;
-    private String kategoriBarang;
-    private String keteranganBarang;
+
+    @Column(nullable = false, length = 255)
+    private String kategori;
+
+    @Column(nullable = true)
+    private String keterangan;
 
     @Column(nullable = false)
-    private int jumlahBarang;
+    private Integer jumlah;
+
+    @Column(nullable = false, insertable = false, updatable = false)
+    private String status;
+
+    @Column(name = "masuk")
+    private ZonedDateTime masuk;
+
+    @Column(name = "barang_update")
+    private ZonedDateTime barangUpdate;
 
     public Barang() {
     }
 
-    public Barang(Long id, String nama, String kategoriBarang, int jumlahBarang, String keteranganBarang) {
-        this.id = id;
+    public Barang(String nama, String kategoriBarang, Integer jumlahBarang, String keteranganBarang) {
         this.nama = nama;
-        this.kategoriBarang = kategoriBarang;
-        this.keteranganBarang = keteranganBarang;
-        this.jumlahBarang = jumlahBarang;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.kategori = kategoriBarang;
+        this.keterangan = keteranganBarang;
+        this.jumlah = jumlahBarang;
     }
 
     public Long getId() {
@@ -50,28 +60,39 @@ public class Barang {
         return nama;
     }
 
-    public void setKategoriBarang(String kategoriBarang) {
-        this.kategoriBarang = kategoriBarang;
+    public void setKategori(String kategoriBarang) {
+        this.kategori = kategoriBarang;
     }
 
-    public String getKategoriBarang() {
-        return kategoriBarang;
+    public String getKategori() {
+        return kategori;
     }
 
-    public void setKeteranganBarang(String keteranganBarang) {
-        this.keteranganBarang = keteranganBarang;
+    public void setKeterangan(String keteranganBarang) {
+        this.keterangan = keteranganBarang;
     }
 
-    public String getKeteranganBarang() {
-        return keteranganBarang;
+    public String getKeterangan() {
+        return keterangan;
     }
 
-    public void setJumlahBarang(int jumlahBarang) {
-        this.jumlahBarang = jumlahBarang;
+    public void setJumlah(Integer jumlahBarang) {
+        this.jumlah = jumlahBarang;
     }
 
-    public int getJumlahBarang() {
-        return jumlahBarang;
+    public Integer getJumlah() {
+        return jumlah;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public ZonedDateTime getMasuk() {
+        return masuk;
+    }
+
+    public ZonedDateTime getBarangUpdate() {
+        return barangUpdate;
+    }
 }
