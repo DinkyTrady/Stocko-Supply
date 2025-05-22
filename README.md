@@ -16,7 +16,9 @@ Aplikasi ini menyediakan fitur-fitur seperti manajemen stok barang, kategori, su
 - **JDK 21**
 - **mvn**
 - **Spring Boot**
-- **MySql**
+- **PostgreSql**
+- **Bootstrap**
+- **Jquery**
 
 ## Kontributor
 
