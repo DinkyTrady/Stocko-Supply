@@ -41,10 +41,11 @@
 
     /* Header */
 header {
-background-color: rgba(0, 0, 0, 0.3);  backdrop-filter: blur(8px); /* opsional: efek blur di belakang */
+background-color: rgba(0, 0, 0, 0.3);  
+backdrop-filter: blur(5px); /* opsional: efek blur di belakang */
   -webkit-backdrop-filter: blur(8px); /* untuk Safari */
   color: white;
-padding: 0.5rem 0;
+padding: 1rem 0;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
@@ -254,9 +255,9 @@ padding: 0.5rem 0;
 
     /* Footer */
     footer {
-      background-color: #343a40;
-      color: white;
-      padding: 3rem 0;
+  background-color: #1e1e2e;
+  color: white;
+  padding: 4rem 0;
     }
 
     .footer-content {
@@ -279,14 +280,31 @@ padding: 0.5rem 0;
     }
 
     .footer-column a {
-      color: #adb5bd;
-      text-decoration: none;
-      transition: color 0.3s;
+  color: #bac2de;
+  text-decoration: none;
+  transition: color 0.3s;
     }
 
     .footer-column a:hover {
-      color: white;
+  color: #f9e2af;
     }
+
+    .footer-column .social-icons {
+  display: flex;
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+.footer-column .social-icons img {
+  width: 32px;
+  height: 32px;
+  filter: brightness(0) invert(1);
+  transition: transform 0.3s ease;
+}
+
+.footer-column .social-icons img:hover {
+  transform: scale(1.2);
+}
 
     .copyright {
       text-align: center;
@@ -349,12 +367,12 @@ padding: 0.5rem 0;
 }
 
 .highlight-yellow {
-  color: #facc15; /* Warna kuning cerah */
+  color: #facc15;
 }
 
 .icon-img {
   width: 32px;
-  height: 32px;
+  height: 24px;
   object-fit: contain;
   filter: brightness(0) invert(1); /* agar putih jika ikonnya hitam */
   transition: transform 0.2s ease;
@@ -430,8 +448,8 @@ padding: 0.5rem 0;
   <!-- Navigation Links -->
   <ul class="nav-links" id="navLinks">
     <li><a href="#">Home</a></li>
-    <li><a href="#">Products</a></li>
     <li><a href="#">Inventory</a></li>
+    <li><a href="#">Product</a></li>
     <li><a href="#about">About Us</a></li>
   </ul>
 
@@ -453,43 +471,40 @@ padding: 0.5rem 0;
 
     </div>
   </header>
+<section class="hero">
+  <div class="container">
+    <h1>Selamat Datang di <span class="highlight-yellow">Stocko</span> Supply</h1>
+    <p>
+      Solusi lengkap untuk manajemen gudang, pelacakan inventaris, dan optimalisasi rantai pasok.
+    </p>
+    <a href="#" class="btn">Mulai Sekarang</a>
+  </div>
+</section>
 
-  <section class="hero">
-    <div class="container">
-<h1>Welcome to <span class="highlight-yellow">Stocko</span> Supply</h1>
+<section class="features">
+  <div class="container">
+    <div class="section-title">
+      <h2>Fitur Kami</h2>
       <p>
-        A complete solution for warehouse management, inventory tracking, and
-        supply chain optimization.
+        Temukan bagaimana sistem manajemen gudang kami dapat meningkatkan operasional Anda
       </p>
-      <a href="#" class="btn">Get Started</a>
     </div>
-  </section>
-
-  <section class="features">
-    <div class="container">
-      <div class="section-title">
-        <h2>Our Features</h2>
-        <p>
-          Discover how our warehouse management system can transform your
-          operations
-        </p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3>Manajemen Inventaris</h3>
+        <p>Lacak inventaris Anda secara real-time dengan analitik dan wawasan yang canggih.</p>
       </div>
-      <div class="features-grid">
-        <div class="feature-card">
-          <h3>Inventory Management</h3>
-          <p>Track your inventory in real-time with powerful analytics and insights.</p>
-        </div>
-        <div class="feature-card">
-          <h3>Supply Chain Optimization</h3>
-          <p>Streamline your supply chain with predictive analytics and smart automation.</p>
-        </div>
-        <div class="feature-card">
-          <h3>Reporting & Analytics</h3>
-          <p>Make data-driven decisions with comprehensive reports and dashboards.</p>
-        </div>
+      <div class="feature-card">
+        <h3>Optimalisasi Rantai Pasok</h3>
+        <p>Optimalkan rantai pasok Anda dengan analitik prediktif dan otomatisasi cerdas.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Laporan & Analitik</h3>
+        <p>Ambil keputusan berdasarkan data dengan laporan dan dashboard yang lengkap.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <section id="about" class="about-us">
     <div class="container">
@@ -516,42 +531,55 @@ padding: 0.5rem 0;
     </div>
   </section>
 
-  <footer>
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-column">
-          <h3>Company</h3>
-          <ul>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">News</a></li>
-
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h3>Services</h3>
-          <ul>
-            <li><a href="#">Inventory Management</a></li>
-            <li><a href="#">Supply Chain Solutions</a></li>
-            <li><a href="#">Data Analytics</a></li>
-            <li><a href="#">Cloud Integration</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h3>Resources</h3>
-          <ul>
-            <li><a href="#">Documentation</a></li>
-            <li><a href="#">API Reference</a></li>
-            <li><a href="#">Tutorials</a></li>
-            <li><a href="#">Blog</a></li>
-          </ul>
-        </div>
+<footer>
+  <div class="container">
+    <div class="footer-content" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 2rem;">
+      <!-- Logo & Description -->
+      <div class="footer-column" style="flex: 1 1 250px;">
+        <img src="../static/assets/Stocko-Supply_logo.svg" alt="Stocko Logo" style="width: 120px; margin-bottom: 1rem;" />
+        <p style="color: #ced4da;">
+          Solusi digital modern untuk kebutuhan manajemen gudang Anda. Efisien. Terintegrasi. Andal.
+        </p>
       </div>
-      <div class="copyright">
-        <p>&copy; 2025 Stocko Supply. Kelompok 2.</p>
+
+      <!-- Links -->
+      <div class="footer-column" style="flex: 1 1 150px;">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">News</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column" style="flex: 1 1 150px;">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="#">Inventory</a></li>
+          <li><a href="#">Supply Chain</a></li>
+          <li><a href="#">Analytics</a></li>
+          <li><a href="#">Integration</a></li>
+        </ul>
+      </div>
+
+      <!-- Social Media -->
+      <div class="footer-column" style="flex: 1 1 200px;">
+        <h3>Follow Us</h3>
+        <div class="social-icons">
+          <a href="#"><img src="../static/assets/facebook.svg" alt="Facebook" /></a>
+          <a href="#"><img src="../static/assets/github.svg" alt="GitHub" /></a>
+          <a href="#"><img src="../static/assets/instagram.svg" alt="Instagram" /></a>
+          <a href="#"><img src="../static/assets/linkedin.svg" alt="LinkedIn" /></a>
+        </div>
       </div>
     </div>
-  </footer>
+
+    <div class="copyright" style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.9rem; color: #adb5bd;">
+      &copy; 2025 <strong>Stocko Supply</strong> — Crafted by <span class="highlight-yellow">Kelompok 2</span>.
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>
