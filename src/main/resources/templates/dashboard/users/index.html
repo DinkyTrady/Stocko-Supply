@@ -19,16 +19,79 @@
   <body>
     <main class="content">
       <div class="container mt-4">
+        <!-- Modal Success -->
         <div
+          class="modal fade"
+          id="successModal"
+          tabindex="-1"
+          aria-labelledby="successModalLabel"
+          aria-hidden="true"
           th:if="${success}"
-          th:text="${success}"
-          class="alert alert-success"
-        ></div>
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-success">
+              <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="successModalLabel">Sukses</h5>
+                <button
+                  type="button"
+                  class="btn-close btn-close-white"
+                  data-bs-dismiss="modal"
+                  aria-label="Tutup"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <p th:text="${success}"></p>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  data-bs-dismiss="modal"
+                >
+                  OK
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Error -->
         <div
+          class="modal fade"
+          id="errorModal"
+          tabindex="-1"
+          aria-labelledby="errorModalLabel"
+          aria-hidden="true"
           th:if="${error}"
-          th:text="${error}"
-          class="alert alert-danger"
-        ></div>
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-danger">
+              <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="errorModalLabel">
+                  Terjadi Kesalahan
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close btn-close-white"
+                  data-bs-dismiss="modal"
+                  aria-label="Tutup"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <p th:text="${error}"></p>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  data-bs-dismiss="modal"
+                >
+                  OK
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="d-flex justify-content-between align-items-center mb-4">
           <h2>Daftar Users</h2>
@@ -302,6 +365,19 @@
           document.getElementById("deleteUsername").textContent = username;
           document.getElementById("deleteUserForm").action =
             `/dashboard/users/delete/${id}`;
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+          const successModalEl = document.getElementById("successModal");
+          const errorModalEl = document.getElementById("errorModal");
+
+          if (successModalEl) {
+            new bootstrap.Modal(successModalEl).show();
+          }
+
+          if (errorModalEl) {
+            new bootstrap.Modal(errorModalEl).show();
+          }
         });
       </script>
     </main>

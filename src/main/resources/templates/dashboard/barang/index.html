@@ -1,0 +1,321 @@
+<!doctype html>
+<html
+  lang="en"
+  th:insert="~{ fragments/layout :: content(~{::head},~{::main}) }"
+>
+  <head th:insert="~{fragments/head :: common_header(~{::title},~{::style},_)}">
+    <title>Dashboard | Stocko Supply</title>
+    <style>
+      .content {
+        margin-left: 20px;
+        padding: 30px;
+      }
+
+      .card i {
+        font-size: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="content">
+      <!-- Modal Success -->
+      <div
+        class="modal fade"
+        id="successModal"
+        tabindex="-1"
+        aria-labelledby="successModalLabel"
+        aria-hidden="true"
+        th:if="${success}"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content border-success">
+            <div class="modal-header bg-success text-white">
+              <h5 class="modal-title" id="successModalLabel">Sukses</h5>
+              <button
+                type="button"
+                class="btn-close btn-close-white"
+                data-bs-dismiss="modal"
+                aria-label="Tutup"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <p th:text="${success}"></p>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-success"
+                data-bs-dismiss="modal"
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Error -->
+      <div
+        class="modal fade"
+        id="errorModal"
+        tabindex="-1"
+        aria-labelledby="errorModalLabel"
+        aria-hidden="true"
+        th:if="${error}"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content border-danger">
+            <div class="modal-header bg-danger text-white">
+              <h5 class="modal-title" id="errorModalLabel">
+                Terjadi Kesalahan
+              </h5>
+              <button
+                type="button"
+                class="btn-close btn-close-white"
+                data-bs-dismiss="modal"
+                aria-label="Tutup"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <p th:text="${error}"></p>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-danger"
+                data-bs-dismiss="modal"
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="mb-4">Dashboard Barang</h2>
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr class="text-center">
+              <th>No</th>
+              <th>Nama Barang</th>
+              <th>Kategori Barang</th>
+              <th>Jumlah Barang</th>
+              <th>Status Barang</th>
+              <th>Keterangan Barang</th>
+              <th>Masuknya Barang</th>
+              <th>Barang Diperbarui</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="barang, iterstat : ${barangs}">
+              <td th:text="${iterstat.index + 1}" class="text-center"></td>
+              <td th:text="${barang.nama}" class="text-center"></td>
+              <td th:text="${barang.kategori}" class="text-center"></td>
+              <td th:text="${barang.jumlah}" class="text-center"></td>
+              <td th:text="${barang.status}" class="text-center"></td>
+              <td th:text="${barang.keterangan}"></td>
+              <td
+                th:text="${#temporals.format(barang.masuk, 'HH:mm, dd-MM-yyyy')}"
+                class="text-center"
+              ></td>
+              <td
+                th:if="${barang.barangUpdate != null}"
+                th:text="${#temporals.format(barang.barangUpdate, 'HH:mm, dd-MM-yyyy')}"
+                class="text-center"
+              ></td>
+              <td
+                th:unless="${barang.barangUpdate != null}"
+                class="text-center"
+              >
+                -
+              </td>
+              <td>
+                <button
+                  class="btn btn-sm btn-warning"
+                  data-bs-toggle="modal"
+                  data-bs-target="#editBarangModal"
+                  th:attr="data-id=${barang.id}, data-nama=${barang.nama}, data-kategori=${barang.kategori}, data-jumlah=${barang.jumlah}, data-status=${barang.jumlah},data-keterangan=${barang.keterangan}"
+                >
+                  Edit
+                </button>
+                <button
+                  class="btn btn-sm btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#deleteBarangModal"
+                  th:attr="data-id=${barang.id}, data-nama=${barang.nama}, data-kategori=${barang.kategori}, data-jumlah=${barang.jumlah}, data-status=${barang.jumlah},data-keterangan=${barang.keterangan}"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Modal Edit Barang -->
+      <div
+        class="modal fade"
+        id="editBarangModal"
+        tabindex="-1"
+        aria-labelledby="editBarangModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form id="editBarangForm" method="post">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editBarangModalLabel">
+                  Edit Barang
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <input type="hidden" id="editId" name="id" />
+                <div class="mb-3">
+                  <label for="editNama" class="form-label">Nama</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="editNama"
+                    name="nama"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="editKategori" class="form-label">Kategori</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="editKategori"
+                    name="kategori"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="editJumlah" class="form-label">Jumlah</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="editJumlah"
+                    name="jumlah"
+                    min="0"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="editKeterangan" class="form-label"
+                    >Keterangan</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="editKeterangan"
+                    name="keterangan"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">
+                  Simpan Perubahan
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Delete Barang -->
+      <div
+        class="modal fade"
+        id="deleteBarangModal"
+        tabindex="-1"
+        aria-labelledby="deleteBarangModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <form
+            th:action="@{/dashboard/barang/delete}"
+            method="post"
+            class="modal-content"
+          >
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteBarangModalLabel">
+                Hapus Barang
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <input type="hidden" id="deleteId" name="id" />
+              <p>
+                Apakah kamu yakin ingin menghapus barang
+                <strong id="deleteNama"></strong>?
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-danger">Hapus</button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Batal
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <script>
+        const editModal = document.getElementById("editBarangModal");
+        editModal.addEventListener("show.bs.modal", function (event) {
+          const button = event.relatedTarget;
+          const id = button.getAttribute("data-id");
+          const nama = button.getAttribute("data-nama");
+          const kategori = button.getAttribute("data-kategori");
+          const jumlah = button.getAttribute("data-jumlah");
+          const keterangan = button.getAttribute("data-keterangan");
+
+          document.getElementById("editNama").value = nama;
+          document.getElementById("editKategori").value = kategori;
+          document.getElementById("editJumlah").value = jumlah;
+          document.getElementById("editKeterangan").value = keterangan;
+
+          document.getElementById("editBarangForm").action =
+            `/dashboard/barang/edit/${id}`;
+        });
+
+        const deleteModal = document.getElementById("deleteBarangModal");
+        deleteModal.addEventListener("show.bs.modal", function (event) {
+          const button = event.relatedTarget;
+          const nama = button.getAttribute("data-nama");
+          document.getElementById("deleteId").value =
+            button.getAttribute("data-id");
+          document.getElementById("deleteNama").innerText = nama;
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+          const successModalEl = document.getElementById("successModal");
+          const errorModalEl = document.getElementById("errorModal");
+
+          if (successModalEl) {
+            new bootstrap.Modal(successModalEl).show();
+          }
+
+          if (errorModalEl) {
+            new bootstrap.Modal(errorModalEl).show();
+          }
+        });
+      </script>
+    </main>
+  </body>
+</html>
