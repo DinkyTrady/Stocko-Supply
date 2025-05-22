@@ -1,10 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>About Us | Stocko Supply</title>
+  <title>Stocko Supply | Inventory</title>
+  <link href="../templates/css/style.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
   <style>
     /* Global Reset */
     * {
@@ -48,12 +50,6 @@
       transition: transform 0.3s ease-in-out;
     }
 
-    /* Hide header on scroll down */
-    header.hide {
-      transform: translateY(-100%);
-      transition: transform 0.3s ease-in-out;
-    }
-
     nav {
       display: flex;
       justify-content: space-between;
@@ -85,8 +81,7 @@
       font-weight: 500;
     }
 
-    .nav-links li a:hover,
-    .nav-links li a.active {
+    .nav-links li a:hover {
       color: #f9e2af;
     }
 
@@ -107,15 +102,12 @@
       padding: 10px;
       border-radius: 4px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      min-width: 100px;
-      z-index: 1100;
     }
 
     .dropdown a {
       display: block;
       color: #11111b;
       padding: 5px 0;
-      text-decoration: none;
     }
 
     .dropdown a:hover {
@@ -371,32 +363,107 @@
         transform: translateY(0);
       }
     }
+    body {
+      background-color: #f8f9fa;
+      color: #343a40;
+      font-family: 'Roboto', sans-serif;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    h2.section-title {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2.5rem;
+      color: #1e1e2e;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 3rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #1e1e2e;
+      color: #f9e2af;
+    }
+    tr:hover {
+      background-color: #f9f9f9;
+      cursor: pointer;
+    }
+    .btn {
+      background-color: #1e1e2e;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #2e2e3e;
+    }
   </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Dropdown & burger menu script sama seperti index.html
+      const profileMenu = document.querySelector(".profile-menu");
+      const dropdown = document.getElementById("dropdown");
+      profileMenu.addEventListener("click", e => {
+        e.stopPropagation();
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+      });
+      document.addEventListener("click", () => {
+        dropdown.style.display = "none";
+      });
+      const burger = document.querySelector(".burger");
+      const navLinks = document.getElementById("navLinks");
+      burger.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+      });
+
+      // Contoh fungsi klik row (show alert)
+      document.querySelectorAll("tbody tr").forEach(row => {
+        row.addEventListener("click", () => {
+          alert(`Detail Inventory: ${row.dataset.item}`);
+        });
+      });
+    });
+  </script>
 </head>
 <body>
-
 <header id="mainHeader">
   <div class="container">
     <nav>
       <div class="logo-section">
-        <a href="index.html">
-          <img src="../static/assets/Stocko-Supply_logo.svg" alt="Logo" class="logo-img" />
-        </a>
+        <img src="../static/assets/Stocko-Supply_logo.svg" alt="Logo" class="logo-img" />
       </div>
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html">Home</a></li>
-        <li><a href="inventory.html">Inventory</a></li>
+        <li><a href="inventory.html" class="active-link">Inventory</a></li>
         <li><a href="product.html">Product</a></li>
-        <li><a href="about.html" class="active">About Us</a></li>
+        <li><a href="supply-chain.html">Supply Chain</a></li>
+        <li><a href="about.html">About Us</a></li>
       </ul>
       <div class="nav-right">
-        <div class="profile-menu" id="profileToggle">
+        <div class="profile-menu">
           <img src="../static/assets/person-square.svg" alt="Profile Icon" class="icon-img" />
           <div class="dropdown" id="dropdown">
-            <a href="#">Login</a>
+            <a href="../auth/login.html" id="authAction">Login</a>
           </div>
         </div>
-        <div class="burger" id="burgerMenu">
+        <div class="burger">
           <img src="../static/assets/list.svg" alt="Menu" class="icon-img" />
         </div>
       </div>
@@ -404,37 +471,44 @@
   </div>
 </header>
 
-<section class="about-us">
-  <div class="container">
-    <div class="section-title fade-in">
-      <h2>About Us</h2>
-      <p>Mengenal lebih dekat siapa kami dan visi misi di balik Stocko Supply</p>
-    </div>
-
-    <div class="about-content fade-in">
-      <div class="about-text">
-        <h3>Tentang Kelompok 2</h3>
-        <p>Kelompok 2 adalah sekelompok mahasiswa pengembang sistem yang memiliki semangat tinggi untuk menciptakan solusi digital yang efektif dalam manajemen logistik dan gudang.</p>
-        <p>Kami terdiri dari individu-individu dengan latar belakang teknologi informasi, bekerja sama untuk menggabungkan keahlian desain, pengembangan web, dan analisis sistem.</p>
-      </div>
-      <div class="about-image">
-        <img src="../static/assets/Stocko-Supply_logo_login.svg" alt="Kelompok 2" />
-      </div>
-    </div>
-
-    <div class="about-content fade-in" style="margin-top: 4rem;">
-      <div class="about-text">
-        <h3>Tentang Stocko Supply</h3>
-        <p>Stocko Supply adalah platform manajemen inventaris yang dikembangkan oleh Kelompok 2 dengan tujuan memudahkan pengelolaan gudang dan stok barang secara efisien dan terorganisir.</p>
-        <p>Dengan fitur modern dan antarmuka yang ramah pengguna, Stocko Supply membantu bisnis meningkatkan produktivitas dan mengurangi kesalahan pengelolaan stok.</p>
-      </div>
-      <div class="about-image">
-        <img src="../static/assets/Stocko-Supply_logo.svg" alt="Stocko Supply" />
-      </div>
-    </div>
-  </div>
+<section class="container">
+  <h2 class="section-title">Inventory List</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID Barang</th>
+        <th>Nama Barang</th>
+        <th>Kategori</th>
+        <th>Stok</th>
+        <th>Lokasi Gudang</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-item="ID001 - Widget A">
+        <td>ID001</td>
+        <td>Widget A</td>
+        <td>Elektronik</td>
+        <td>120</td>
+        <td>Gudang 1</td>
+      </tr>
+      <tr data-item="ID002 - Gadget B">
+        <td>ID002</td>
+        <td>Gadget B</td>
+        <td>Perangkat Keras</td>
+        <td>75</td>
+        <td>Gudang 2</td>
+      </tr>
+      <tr data-item="ID003 - Komponen C">
+        <td>ID003</td>
+        <td>Komponen C</td>
+        <td>Spare Part</td>
+        <td>200</td>
+        <td>Gudang 1</td>
+      </tr>
+    </tbody>
+  </table>
+  <button ahref="../dashboard/index.html" class="btn">Tambah Inventory</button>
 </section>
-
 
 <footer>
   <div class="container">
@@ -446,8 +520,8 @@
       <div class="footer-column">
         <h3>Services</h3>
         <ul>
-          <li><a href="inventory.html">Inventory</a></li>
-          <li><a href="supply-chain.html">Supply Chain</a></li>
+          <li><a href="#">Inventory</a></li>
+          <li><a href="#">Supply Chain</a></li>
           <li><a href="#">Analytics</a></li>
           <li><a href="#">Integration</a></li>
         </ul>
@@ -467,47 +541,5 @@
     </div>
   </div>
 </footer>
-
-<script>
-  // Toggle Profile dropdown
-  const profileToggle = document.getElementById('profileToggle');
-  const dropdown = document.getElementById('dropdown');
-  profileToggle.addEventListener('click', (e) => {
-    e.stopPropagation();
-    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-  });
-
-  // Close dropdown if clicking outside
-  window.addEventListener('click', () => {
-    dropdown.style.display = 'none';
-  });
-
-  // Toggle mobile burger menu
-  const burgerMenu = document.getElementById('burgerMenu');
-  const navLinks = document.getElementById('navLinks');
-
-  burgerMenu.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-  });
-
-  // Navbar hide on scroll down, show on scroll up
-  let lastScrollTop = 0;
-  const header = document.getElementById('mainHeader');
-
-  window.addEventListener('scroll', () => {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-    if(scrollTop > lastScrollTop && scrollTop > 100) {
-      // scroll ke bawah -> sembunyikan header
-      header.classList.add('hide');
-    } else {
-      // scroll ke atas -> tampilkan header
-      header.classList.remove('hide');
-    }
-
-    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-  });
-</script>
-
 </body>
 </html>
