@@ -89,7 +89,7 @@ public class UserController {
 
         User user = userService.getUserById(id);
         if (user == null) {
-            return "redirect:/dashboard/users/index";
+            return "redirect:/dashboard/users";
         }
 
         model.addAttribute("user", user);
@@ -115,7 +115,7 @@ public class UserController {
         } else {
             redirectAttributes.addFlashAttribute("error", "Gagal memperbarui user");
         }
-        return "redirect:/dashboard/users/index";
+        return "redirect:/dashboard/users";
     }
 
     @PostMapping("/delete/{id}")
@@ -134,7 +134,7 @@ public class UserController {
         } else {
             redirectAttributes.addFlashAttribute("error", "Gagal menghapus user");
         }
-        return "redirect:/dashboard/users/index";
+        return "redirect:/dashboard/users";
     }
 
     @GetMapping("/search")
