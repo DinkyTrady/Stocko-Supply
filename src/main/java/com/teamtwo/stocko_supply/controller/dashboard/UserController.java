@@ -29,8 +29,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("")
-    public String listUsers(Model model, HttpSession session) {
-        User currentUser = (User) session.getAttribute("currentUser");
+    public String listUsers(Model model, HttpServletRequest request) {
+        User currentUser = userService.getCurrentUser(request);
         if (!"admin".equalsIgnoreCase(currentUser.getRole())) {
             model.addAttribute("error", "Anda tidak dapat mengakses url ini");
             return "redirect:/dashboard";
@@ -65,12 +65,6 @@ public class UserController {
             Model model,
             RedirectAttributes redirectAttributes,
             HttpServletRequest request) {
-        // Check if user is admin
-        HttpSession session = request.getSession();
-        User currentUser = (User) session.getAttribute("currentUser");
-        if (currentUser == null || !currentUser.isAdmin()) {
-            return "redirect:/dashboard";
-        }
 
         model.addAttribute("error", "Username sudah digunakan");
         return "dashboard/users/index";
@@ -78,22 +72,11 @@ public class UserController {
 
     @GetMapping("/edit/{id}")
     public String editUserForm(@PathVariable Long id,
-            Model model,
-            HttpServletRequest request) {
-        // Check if user is admin
-        HttpSession session = request.getSession();
-        User currentUser = (User) session.getAttribute("currentUser");
-        if (currentUser == null || !currentUser.isAdmin()) {
-            return "redirect:/dashboard";
-        }
-
+            Model model) {
         User user = userService.getUserById(id);
-        if (user == null) {
-            return "redirect:/dashboard/users";
-        }
 
         model.addAttribute("user", user);
-        return "dashboard/users/index";
+        return "redirect:/dashboard/users";
     }
 
     @PostMapping("/edit/{id}")
@@ -101,20 +84,24 @@ public class UserController {
             @RequestParam String username,
             @RequestParam String password,
             @RequestParam String role,
-            RedirectAttributes redirectAttributes,
-            HttpServletRequest request) {
-        // Check if user is admin
-        HttpSession session = request.getSession();
-        User currentUser = (User) session.getAttribute("currentUser");
-        if (currentUser == null || !currentUser.isAdmin()) {
-            return "redirect:/dashboard";
-        }
-
+            RedirectAttributes redirectAttributes) {
         if (userService.updateUser(id, username, password, role)) {
             redirectAttributes.addFlashAttribute("success", "User berhasil diperbarui!");
         } else {
             redirectAttributes.addFlashAttribute("error", "Gagal memperbarui user");
         }
+
+        return "redirect:/dashboard/users";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteUserForm(@PathVariable Long id, HttpServletRequest request,
+            Model model) {
+        // redirectAttributes.addFlashAttribute("error", "id dengan " + id + " tidak
+        // ditemukan");
+        User user = userService.getUserById(id);
+
+        model.addAttribute("user", user);
         return "redirect:/dashboard/users";
     }
 
@@ -122,18 +109,12 @@ public class UserController {
     public String deleteUser(@PathVariable Long id,
             RedirectAttributes redirectAttributes,
             HttpServletRequest request) {
-        // Check if user is admin
-        HttpSession session = request.getSession();
-        User currentUser = (User) session.getAttribute("currentUser");
-        if (currentUser == null || !currentUser.isAdmin()) {
-            return "redirect:/dashboard";
-        }
-
         if (userService.deleteUser(id)) {
             redirectAttributes.addFlashAttribute("success", "User berhasil dihapus!");
         } else {
             redirectAttributes.addFlashAttribute("error", "Gagal menghapus user");
         }
+
         return "redirect:/dashboard/users";
     }
 
