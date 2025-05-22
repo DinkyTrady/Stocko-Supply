@@ -65,6 +65,12 @@ public class UserController {
             Model model,
             RedirectAttributes redirectAttributes,
             HttpServletRequest request) {
+        User currentUser = userService.getCurrentUser(request);
+
+        if (userService.addUser(username, password, role)) {
+            redirectAttributes.addFlashAttribute("success", "User baru berhasil ditambahkan!");
+            return "redirect:/dashboard/users";
+        }
 
         model.addAttribute("error", "Username sudah digunakan");
         return "dashboard/users/index";
