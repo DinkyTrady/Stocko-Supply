@@ -1,12 +1,557 @@
 <!doctype html>
 <html lang="en">
-  <head
-    th:insert="~{ fragments/head :: common_header(~{::title},~{::style},_) }"
-  >
-    <title>Home | Stocko Supply</title>
-    <style></style>
-  </head>
-  <body>
-    <h1>Hello</h1>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stocko Supply | Home</title>
+  <link href="../templates/css/style.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    integrity="sha512-RXf+QSDCUQs6Q0SszMQI+e8cQDdKH29Dj9qwP0POFoOkHZQ3vEIjWa7b8M5fJ6J9zEWR5Ns5xUXY73cs1Y1s9g=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <style>
+    /* Reset & Global */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Roboto", sans-serif;
+    }
+
+    body {
+      background-color: #f8f9fa;
+      color: #343a40;
+      line-height: 1.6;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    /* Header */
+header {
+background-color: rgba(0, 0, 0, 0.3);  backdrop-filter: blur(8px); /* opsional: efek blur di belakang */
+  -webkit-backdrop-filter: blur(8px); /* untuk Safari */
+  color: white;
+padding: 0.5rem 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: transform 0.3s ease-in-out;
+}
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      position: relative; /* penting untuk nav-links absolute */
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-img {
+      height: 70px;
+      width: 100px;
+    }
+
+    @media (max-width: 768px) {
+      .logo-img {
+        height: 50px;
+        width: 70px;
+      }
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    /* Nav Links */
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links li a:hover {
+      color: #f9e2af;
+    }
+
+    /* Profile Menu */
+    .profile-menu {
+      position: relative;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      margin-left: 1rem;
+    }
+
+    .profile-icon {
+      font-size: 1.8rem;
+      color: white;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 130%;
+      right: 0;
+      background: white;
+      color: #11111b;
+      padding: 10px;
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      min-width: 120px;
+      z-index: 100;
+    }
+
+    .dropdown a {
+      display: block;
+      text-decoration: none;
+      color: #11111b;
+      padding: 5px 0;
+      transition: color 0.3s;
+    }
+
+    .dropdown a:hover {
+      color: #1e1e2e;
+    }
+
+    /* Burger (Mobile) */
+    .burger {
+      display: none;
+      font-size: 1.8rem;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        background-color: #11111b;
+        display: none;
+        padding: 1rem 0;
+        z-index: 1000;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links li {
+        margin: 0.5rem 0;
+        text-align: center;
+      }
+
+      .burger {
+        display: block;
+      }
+    }
+
+    /* Hero Section */
+.hero {
+  margin-top: -110px;
+  padding-top: 6rem;
+  padding-bottom: 5rem;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("https://images.unsplash.com/photo-1553413077-190dd305871c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-align: center;
+}
+
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #1e1e2e;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #2e2e3e;
+    }
+
+    /* Features Section */
+    .features {
+      padding: 5rem 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      background-color: white;
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .feature-card h3 {
+      font-size: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #343a40;
+      color: white;
+      padding: 3rem 0;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-column h3 {
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-column a {
+      color: #adb5bd;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-column a:hover {
+      color: white;
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* About Us */
+    .about-us {
+      padding: 5rem 0;
+      background-color: #ffffff;
+    }
+
+    .about-content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .about-text {
+      flex: 1 1 50%;
+    }
+
+    .about-text h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #1e1e2e;
+    }
+
+    .about-text p {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .about-image {
+      flex: 1 1 40%;
+      text-align: center;
+    }
+
+    .about-image img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 768px) {
+      .about-content {
+        flex-direction: column;
+      }
+    }
+
+    .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.highlight-yellow {
+  color: #facc15; /* Warna kuning cerah */
+}
+
+.icon-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  filter: brightness(0) invert(1); /* agar putih jika ikonnya hitam */
+  transition: transform 0.2s ease;
+}
+
+.icon-img:hover {
+  transform: scale(1.1);
+}
+
+
+  </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Scroll Hide/Show Header
+    const header = document.getElementById("mainHeader");
+    let lastScrollTop = 0;
+
+    window.addEventListener("scroll", function () {
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (currentScroll > lastScrollTop && currentScroll > 100) {
+        header.style.transform = "translateY(-100%)";
+      } else {
+        header.style.transform = "translateY(0)";
+      }
+
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    });
+
+    // Toggle Dropdown Menu
+    const profileMenu = document.querySelector(".profile-menu");
+    const dropdown = document.getElementById("dropdown");
+
+    profileMenu.addEventListener("click", function (e) {
+      e.stopPropagation(); // Mencegah event bubbling
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    });
+
+    // Tutup dropdown jika klik di luar
+    document.addEventListener("click", function (e) {
+      if (!profileMenu.contains(e.target)) {
+        dropdown.style.display = "none";
+      }
+    });
+
+    // Toggle Burger Menu
+    const burger = document.querySelector(".burger");
+    const navLinks = document.getElementById("navLinks");
+
+    burger.addEventListener("click", function () {
+      navLinks.classList.toggle("active");
+    });
+  });
+</script>
+
+
+
+</head>
+<body>
+<header id="mainHeader">
+    <div class="container">
+<nav>
+  <!-- Logo -->
+  <div class="logo-section">
+    <img
+      src="../static/assets/Stocko-Supply_logo.svg"
+      alt="Logo"
+      class="logo-img"
+    />
+  </div>
+
+  <!-- Navigation Links -->
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Products</a></li>
+    <li><a href="#">Inventory</a></li>
+    <li><a href="#about">About Us</a></li>
+  </ul>
+
+  <!-- Tambahkan ini -->
+  <div class="nav-right">
+<div class="profile-menu" onclick="toggleDropdown()">
+  <img src="../static/assets/person-square.svg" alt="Profile Icon" class="icon-img" />
+  <div class="dropdown" id="dropdown">
+    <a href="#" id="authAction">Login</a>
+  </div>
+</div>
+
+<!-- Burger Icon -->
+<div class="burger" onclick="toggleMenu()">
+  <img src="../static/assets/list.svg" alt="Menu" class="icon-img" />
+</div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+<h1>Welcome to <span class="highlight-yellow">Stocko</span> Supply</h1>
+      <p>
+        A complete solution for warehouse management, inventory tracking, and
+        supply chain optimization.
+      </p>
+      <a href="#" class="btn">Get Started</a>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="container">
+      <div class="section-title">
+        <h2>Our Features</h2>
+        <p>
+          Discover how our warehouse management system can transform your
+          operations
+        </p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3>Inventory Management</h3>
+          <p>Track your inventory in real-time with powerful analytics and insights.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Supply Chain Optimization</h3>
+          <p>Streamline your supply chain with predictive analytics and smart automation.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Reporting & Analytics</h3>
+          <p>Make data-driven decisions with comprehensive reports and dashboards.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about-us">
+    <div class="container">
+      <div class="section-title">
+        <h2>About Us</h2>
+ <p>
+  Pelajari lebih lanjut tentang Stocko Supply, solusi manajemen gudang hasil karya Kelompok 2.
+</p>
+      </div>
+      <div class="about-content">
+        <div class="about-text">
+          <h3>Who We Are</h3>
+<p>
+  Stocko Supply adalah solusi sistem manajemen gudang yang dirancang untuk membantu pengelolaan inventaris dan rantai pasok secara efisien dan terintegrasi.
+</p>
+<p>
+  Aplikasi ini merupakan hasil proyek dari Kelompok 2 sebagai bagian dari pengembangan teknologi informasi dalam bidang logistik dan distribusi. Dengan antarmuka yang ramah pengguna dan fitur-fitur modern, Stocko Supply mendukung peningkatan produktivitas operasional secara menyeluruh.
+</p>
+        </div>
+        <div class="about-image">
+          <img src="../static/assets/Stocko-Supply_logo_login.svg" alt="About Stocko Supply" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Company</h3>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">News</a></li>
+
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Services</h3>
+          <ul>
+            <li><a href="#">Inventory Management</a></li>
+            <li><a href="#">Supply Chain Solutions</a></li>
+            <li><a href="#">Data Analytics</a></li>
+            <li><a href="#">Cloud Integration</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">API Reference</a></li>
+            <li><a href="#">Tutorials</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 Stocko Supply. Kelompok 2.</p>
+      </div>
+    </div>
+  </footer>
+</body>
 </html>
