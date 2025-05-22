@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Us | Stocko Supply</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Root Variables */
+    :root {
+      --rosewater: #f5e0dc;
+      --flamingo: #f2cdcd;
+      --blue: #89b4fa;
+      --lavender: #b4befe;
+      --surface: #313244;
+      --base: #1e1e2e;
+      --text: #cdd6f4;
+      --subtext: #a6adc8;
+      --highlight: #f9e2af;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--base);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    /* Enhanced hover effects for all links */
+    a {
+      position: relative;
+      display: inline-block;
+      color: var(--blue);
+      text-decoration: none;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    a::after {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      left: 0;
+      bottom: -2px;
+      background-color: var(--lavender);
+      transition: width 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--lavender);
+      transform: scale(1.03);
+    }
+
+    a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links li a,
+    .dropdown a,
+    .footer-column ul li a {
+      padding: 0.3rem 0.5rem;
+      border-radius: 0.3rem;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .nav-links li a:hover,
+    .dropdown a:hover,
+    .footer-column ul li a:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 0 6px var(--lavender);
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    header {
+      background-color: var(--surface);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      transition: top 0.3s ease;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-img {
+      width: 140px;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .icon-img {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+
+    .profile-menu {
+      position: relative;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: var(--surface);
+      border: 1px solid var(--flamingo);
+      border-radius: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .profile-menu:hover .dropdown {
+      display: block;
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 0.5rem 1rem;
+      color: var(--text);
+    }
+
+    section.about-us {
+      padding: 4rem 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: var(--lavender);
+    }
+
+    .section-title p {
+      color: var(--subtext);
+      font-size: 1.1rem;
+    }
+
+    .about-content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .about-text {
+      flex: 1 1 50%;
+    }
+
+    .about-text h3 {
+      color: var(--rosewater);
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .about-text p {
+      color: var(--subtext);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .about-image {
+      flex: 1 1 40%;
+    }
+
+    .about-image img {
+      width: 100%;
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    footer {
+      background-color: var(--surface);
+      padding: 2rem 0;
+      margin-top: 4rem;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .footer-column {
+      flex: 1 1 200px;
+    }
+
+    .footer-column h3 {
+      color: var(--rosewater);
+      margin-bottom: 1rem;
+    }
+
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-icons img {
+      width: 24px;
+      height: 24px;
+      transition: transform 0.2s;
+    }
+
+    .social-icons img:hover {
+      transform: scale(1.1);
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: var(--subtext);
+    }
+
+    .highlight-yellow {
+      color: var(--highlight);
+    }
+
+    .burger {
+      display: none;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: row;
+      }
+
+      .burger {
+        display: block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: var(--surface);
+        flex-direction: column;
+        width: 200px;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        display: none;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .about-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      nav {
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .nav-links li {
+        margin-bottom: 1rem;
+      }
+
+      .nav-right {
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header id="mainHeader">
+  <div class="container">
+    <nav>
+      <div class="logo-section">
+        <img src="../static/assets/Stocko-Supply_logo.svg" alt="Logo" class="logo-img" />
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">Inventory</a></li>
+        <li><a href="#">Product</a></li>
+        <li><a href="about.html">About Us</a></li>
+      </ul>
+      <div class="nav-right">
+        <div class="profile-menu">
+          <img src="../static/assets/person-square.svg" alt="Profile Icon" class="icon-img" />
+          <div class="dropdown" id="dropdown">
+            <a href="#">Login</a>
+          </div>
+        </div>
+        <div class="burger" id="burgerMenu">
+          <img src="../static/assets/list.svg" alt="Menu" class="icon-img" />
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="about-us">
+  <div class="container">
+    <div class="section-title">
+      <h2>About Us</h2>
+      <p>Mengenal lebih dekat siapa kami dan visi misi di balik Stocko Supply</p>
+    </div>
+
+    <div class="about-content">
+      <div class="about-text">
+        <h3>Tentang Kelompok 2</h3>
+        <p>
+          Kelompok 2 adalah sekelompok mahasiswa pengembang sistem yang memiliki semangat tinggi untuk menciptakan solusi digital yang efektif dalam manajemen logistik dan gudang.
+        </p>
+        <p>
+          Kami terdiri dari individu-individu dengan latar belakang teknologi informasi, bekerja sama untuk menggabungkan keahlian desain, pengembangan web, dan analisis sistem.
+        </p>
+      </div>
+      <div class="about-image">
+        <img src="../static/assets/Stocko-Supply_logo_login.svg" alt="Kelompok 2" />
+      </div>
+    </div>
+
+    <div class="about-content" style="margin-top: 4rem;">
+      <div class="about-image">
+        <img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e" alt="Stocko Warehouse" />
+      </div>
+      <div class="about-text">
+        <h3>Tentang Web Stocko Supply</h3>
+        <p>
+          Stocko Supply adalah aplikasi manajemen gudang berbasis web yang dikembangkan untuk membantu bisnis dalam mengelola persediaan, pelacakan barang, dan rantai pasok.
+        </p>
+        <p>
+          Dengan antarmuka modern, kemudahan penggunaan, dan fitur lengkap seperti laporan, manajemen inventaris, serta integrasi, Stocko Supply hadir sebagai solusi digital andal bagi operasional gudang.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-column">
+        <img src="../static/assets/Stocko-Supply_logo.svg" alt="Stocko Logo" style="width: 120px; margin-bottom: 1rem;" />
+        <p style="color: #ced4da;">
+          Solusi digital modern untuk kebutuhan manajemen gudang Anda. Efisien. Terintegrasi. Andal.
+        </p>
+      </div>
+      <div class="footer-column">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">News</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="#">Inventory</a></li>
+          <li><a href="#">Supply Chain</a></li>
+          <li><a href="#">Analytics</a></li>
+          <li><a href="#">Integration</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Follow Us</h3>
+        <div class="social-icons">
+          <a href="#"><img src="../static/assets/facebook.svg" alt="Facebook" /></a>
+          <a href="#"><img src="../static/assets/github.svg" alt="GitHub" /></a>
+          <a href="#"><img src="../static/assets/instagram.svg" alt="Instagram" /></a>
+          <a href="#"><img src="../static/assets/linkedin.svg" alt="LinkedIn" /></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="copyright">
+      &copy; 2025 <strong>Stocko Supply</strong> — Crafted by <span class="highlight-yellow">Kelompok 2</span>.
+    </div>
+  </div>
+</footer>
+
+<script>
+  const burger = document.getElementById('burgerMenu');
+  const navLinks = document.getElementById('navLinks');
+  const header = document.getElementById('mainHeader');
+
+  burger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+
+  let lastScrollTop = 0;
+  window.addEventListener('scroll', () => {
+    let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    if (currentScroll > lastScrollTop) {
+      header.style.top = "-100px";
+    } else {
+      header.style.top = "0";
+    }
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+  });
+</script>
+
+</body>
+</html>
