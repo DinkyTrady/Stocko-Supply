@@ -1,5 +1,7 @@
 package com.teamtwo.stocko_supply.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +13,6 @@ import com.teamtwo.stocko_supply.repository.UserRepository;
 import com.teamtwo.stocko_supply.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/dashboard")
@@ -26,8 +26,11 @@ public class DashboardController {
     @GetMapping("")
     public String showDashboard(Model model, HttpServletRequest request) {
         try {
-            userService.prepareCurrentUser(request, model);
+            // First check if user is authenticated
             User currentUser = userService.getCurrentUser(request);
+            if (currentUser == null) {
+                throw new Error("currentUser is null");
+            }
 
             boolean isAdmin = currentUser != null && "admin".equalsIgnoreCase(currentUser.getUsername())
                     && "admin".equalsIgnoreCase(currentUser.getRole());
@@ -35,15 +38,12 @@ public class DashboardController {
 
             model.addAttribute("users", users);
             model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("currentUser", currentUser);
 
-            if (currentUser == null) {
-                return "redirect:/auth/login";
-            }
+            return "dashboard/index";
         } catch (Exception e) {
-            // TODO: handle exception
             e.printStackTrace();
+            return "redirect:/auth/login"; // Redirect to login if any error occurs
         }
-
-        return "dashboard/index";
     }
 }
