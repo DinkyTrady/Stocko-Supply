@@ -1,23 +1,61 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="250px" height="150px" viewBox="0 0 250 150" enable-background="new 0 0 250 150" xml:space="preserve">
-<path fill="#15253F" d="M65.431,12.507c-34.557,0-62.567,28.009-62.567,62.563c0,34.542,28.01,62.551,62.567,62.551
-	c34.553,0,62.566-28.01,62.566-62.551C127.997,40.516,99.983,12.507,65.431,12.507z"/>
-<g>
-	<g>
-		<path fill="#FFFFFF" d="M53.273,67.02l-6.049-2.368l-5.233,3.595V52.245l-11.302,3.719v7.289c1.221,0.058,2.539,0.361,3.923,0.959
-			c6.028,2.603,10.91,9.598,10.91,15.622c0,6.027-4.882,8.796-10.91,6.191c-1.384-0.606-2.702-1.442-3.923-2.44v12.81l45.253,14.872
-			V41.083l-22.669,7.452V67.02z M98.993,52.245v16.002l-3.034-3.595l-3.506,2.368V48.535l-13.141-7.452v70.183l26.237-14.872v-40.43
-			L98.993,52.245z"/>
-		<path fill="#FFC534" d="M33.474,65.856L9.759,55.602c0,3.818,3.096,8.248,6.913,9.895l0.07,0.032c0,2.76,2.24,5.98,5.008,7.175
-			l2.346,1.016c1.021,4.689,4.816,9.505,9.378,11.469c5.339,2.31,9.664-0.146,9.664-5.488
-			C43.138,74.366,38.813,68.167,33.474,65.856z"/>
+
+<svg
+   version="1.1"
+   id="Layer_1"
+   x="0px"
+   y="0px"
+   width="250"
+   height="150"
+   viewBox="0 0 250 150"
+   enable-background="new 0 0 250 150"
+   xml:space="preserve"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs5" />
+
+<g
+   id="g1"
+   transform="matrix(0.8118645,0,0,0.81198505,5.1932788,12.464375)"><path
+     fill="#15253f"
+     d="m 68.080532,15.438246 c -34.525941,0 -62.5107665,27.983827 -62.5107665,62.506771 0,34.510953 27.9848255,62.494793 62.5107665,62.494793 34.521938,0 62.509768,-27.98484 62.509768,-62.494793 0,-34.522944 -27.98883,-62.506771 -62.509768,-62.506771 z"
+     id="path1"
+     style="stroke-width:0.999102" /><g
+     id="g3"
+     transform="translate(5.1764957,3.6099756)">
+		<path
+   fill="#ffffff"
+   d="m 52.880228,65.056432 -6.049,-2.368 -5.233,3.595 v -16.002 l -11.302,3.719 v 7.289 c 1.221,0.058 2.539,0.361 3.923,0.959 6.028,2.603 10.91,9.598 10.91,15.622 0,6.027 -4.882,8.796 -10.91,6.191 -1.384,-0.606 -2.702,-1.442 -3.923,-2.44 v 12.81 l 45.253,14.871998 V 39.119432 l -22.669,7.452 z m 45.72,-14.775 v 16.002 l -3.034,-3.595 -3.506,2.368 v -18.485 l -13.141,-7.452 V 109.30243 L 105.15623,94.430432 v -40.43 z"
+   id="path2" />
+		<path
+   fill="#ffc534"
+   d="m 33.081228,63.892432 -23.7149999,-10.254 c 0,3.818 3.0959999,8.248 6.9129999,9.895 l 0.07,0.032 c 0,2.76 2.24,5.98 5.008,7.175 l 2.346,1.016 c 1.021,4.689 4.816,9.505 9.378,11.469 5.339,2.31 9.664,-0.146 9.664,-5.488 0,-5.335 -4.325,-11.534 -9.664,-13.845 z"
+   id="path3" />
+	</g></g><g
+   id="g4"
+   transform="translate(-13.500094,0.46025934)">
+		<text
+   fill="#ffc534"
+   font-family="Poppins-BoldItalic"
+   font-size="31.8917px"
+   id="text3"
+   style="font-size:34.6667px;stroke-width:1.00516"
+   x="130.83853"
+   y="70.423004"
+   transform="scale(1.005162,0.9948645)"><tspan
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:34.6667px;font-family:Poppins-BoldItalic;-inkscape-font-specification:'Poppins-BoldItalic Bold';stroke-width:1.00516"
+     id="tspan5">Stocko</tspan></text>
+		<text
+   fill="#15253f"
+   font-family="Poppins-BoldItalic"
+   font-size="31.8917px"
+   id="text4"
+   style="font-size:34.6667px;stroke-width:1.00262"
+   x="130.50787"
+   y="100.25546"
+   transform="scale(1.0077087,0.99235026)"><tspan
+     style="font-weight:bold;font-size:34.6667px;stroke-width:1.00262"
+     id="tspan6">Supply</tspan></text>
 	</g>
-	<g>
-		<text transform="matrix(1 0 0 1 130.8848 72.3555)" fill="#FFC534" font-family="'Poppins-BoldItalic'" font-size="31.8917">Stocko</text>
-		<text transform="matrix(1 0 0 1 130.8848 101.9092)" fill="#15253F" font-family="'Poppins-BoldItalic'" font-size="31.8917">Supply</text>
-	</g>
-</g>
 </svg>

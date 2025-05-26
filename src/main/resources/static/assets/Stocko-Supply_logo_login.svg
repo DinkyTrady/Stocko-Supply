@@ -1,20 +1,54 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="160px" height="160px" viewBox="0 0 160 160" enable-background="new 0 0 160 160" xml:space="preserve">
-<path fill="#15253F" d="M80.536,9.797c25.562,0,46.282,20.276,46.282,45.289c0,25.016-20.721,45.291-46.282,45.291
-	c-25.563,0-46.285-20.274-46.285-45.291C34.251,30.073,54.973,9.797,80.536,9.797z"/>
-<g>
-	<path fill="#FFFFFF" d="M71.544,49.262l-4.475-1.712l-3.874,2.603V38.563l-8.36,2.693v5.276c0.902,0.042,1.878,0.262,2.904,0.693
-		c4.456,1.885,8.067,6.948,8.067,11.31c0,4.359-3.611,6.368-8.067,4.484c-1.024-0.435-2.002-1.042-2.904-1.765v9.266l33.473,10.77
-		V30.482l-16.767,5.398v13.381H71.544z M105.363,38.563v11.589l-2.244-2.603l-2.594,1.712V35.877l-9.717-5.395V81.29l19.4-10.77
-		V41.256L105.363,38.563z"/>
-	<path fill="#FFC534" d="M56.896,48.419l-17.541-7.422c0,2.76,2.286,5.97,5.109,7.164l0.053,0.018c0,2.005,1.657,4.327,3.705,5.194
-		l1.739,0.737c0.752,3.395,3.562,6.875,6.935,8.303c3.948,1.67,7.149-0.107,7.149-3.971C64.045,54.577,60.844,50.09,56.896,48.419z"
-		/>
+
+<svg
+   version="1.1"
+   id="Layer_1"
+   x="0px"
+   y="0px"
+   width="160"
+   height="120"
+   viewBox="0 0 160 120"
+   enable-background="new 0 0 160 160"
+   xml:space="preserve"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs4" />
+
+<g
+   id="g3"
+   transform="translate(1.86395,-5.5)">
+	<path
+   fill="#15253f"
+   d="m 78.137433,10.5 c 23.547537,0 42.634667,19.087846 42.634667,42.635109 0,23.550088 -19.08804,42.636993 -42.634667,42.636993 C 54.588967,95.772102 35.5,76.686138 35.5,53.135109 35.5,29.587846 54.588967,10.5 78.137433,10.5 Z"
+   id="path1"
+   style="stroke-width:0.931242" /><path
+   fill="#ffffff"
+   d="m 71.544,47.28 -4.475,-1.712 -3.874,2.603 v -11.59 l -8.36,2.693 v 5.276 c 0.902,0.042 1.878,0.262 2.904,0.693 4.456,1.885 8.067,6.948 8.067,11.31 0,4.359 -3.611,6.368 -8.067,4.484 -1.024,-0.435 -2.002,-1.042 -2.904,-1.765 v 9.266 l 33.473,10.77 V 28.5 l -16.767,5.398 v 13.381 h 0.003 z M 105.363,36.581 V 48.17 l -2.244,-2.603 -2.594,1.712 V 33.895 L 90.808,28.5 v 50.808 l 19.4,-10.77 V 39.274 Z"
+   id="path2" />
+	<path
+   fill="#ffc534"
+   d="M 56.896,46.437 39.355,39.015 c 0,2.76 2.286,5.97 5.109,7.164 l 0.053,0.018 c 0,2.005 1.657,4.327 3.705,5.194 l 1.739,0.737 c 0.752,3.395 3.562,6.875 6.935,8.303 3.948,1.67 7.149,-0.107 7.149,-3.971 0,-3.865 -3.201,-8.352 -7.149,-10.023 z"
+   id="path3" />
 </g>
-<g>
-	<text transform="matrix(1.0219 0 0 1 14.6748 121.6221)" enable-background="new    "><tspan x="0" y="0" fill="#FFC534" font-family="'Poppins-BoldItalic'" font-size="18.3423">Stocko </tspan><tspan x="68.893" y="0" fill="#15253F" font-family="'Poppins-BoldItalic'" font-size="18.3423">Supply</tspan></text>
+<g
+   id="g4"
+   transform="translate(0.0808178,-15)">
+	<text
+   transform="scale(1.0415251,0.96013048)"
+   enable-background="new    "
+   id="text4"
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;line-height:0em;font-family:Poppins-BoldItalic;-inkscape-font-specification:'Poppins-BoldItalic Bold';stroke-width:1.04153"
+   x="3.7366652"
+   y="134.80119"><tspan
+     x="3.7366652"
+     y="134.80119"
+     fill="#ffc534"
+     font-family="Poppins-BoldItalic"
+     font-size="18.3423px"
+     id="tspan3"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:18.6667px;font-family:Poppins-BoldItalic;-inkscape-font-specification:'Poppins-BoldItalic Bold';stroke-width:1.04153">Stocko <tspan
+   style="font-size:18.6667px;fill:#15253f;fill-opacity:1"
+   id="tspan7">Supply</tspan></tspan></text>
 </g>
 </svg>
