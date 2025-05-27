@@ -14,38 +14,157 @@
       .card i {
         font-size: 2rem;
       }
+
+      /* Modal animations */
+      .modal-backdrop {
+        transition: opacity 0.3s ease-out;
+      }
+
+      .modal-backdrop.show {
+        opacity: 1;
+      }
+
+      .modal-backdrop.hide {
+        opacity: 0;
+      }
+
+      .modal-content {
+        transition: all 0.3s ease-out;
+        transform: scale(0.7) translateY(-50px);
+        opacity: 0;
+      }
+
+      .modal-content.show {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+
+      .modal-content.hide {
+        transform: scale(0.7) translateY(-50px);
+        opacity: 0;
+      }
+
+      /* Custom scrollbar for table container */
+      .table-scroll::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      .table-scroll::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+      }
+
+      .table-scroll::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 4px;
+      }
+
+      .table-scroll::-webkit-scrollbar-thumb:hover {
+        background: #a8a8a8;
+      }
+
+      /* Responsive table breakpoints */
+      @media (max-width: 1024px) {
+        .mobile-card {
+          display: block;
+        }
+
+        .desktop-table {
+          display: none;
+        }
+      }
+
+      @media (min-width: 1025px) {
+        .mobile-card {
+          display: none;
+        }
+
+        .desktop-table {
+          display: block;
+        }
+      }
+
+      /* Responsive table columns */
+      @media (min-width: 1025px) and (max-width: 1280px) {
+        .hide-on-lg {
+          display: none;
+        }
+      }
+
+      @media (min-width: 1025px) and (max-width: 1440px) {
+        .hide-on-xl {
+          display: none;
+        }
+      }
+
+      /* status badges */
+      .status-tersedia {
+        background-color: #d1fae5; /* Tailwind green-100 */
+        color: #065f46; /* Tailwind green-800 */
+        padding: 0.25rem 0.5rem;
+      }
+
+      .status-kosong {
+        background-color: #fee2e2; /* Tailwind red-100 */
+        color: #b91c1c; /* Tailwind red-800 */
+        padding: 0.25rem 0.5rem;
+      }
+
+      /* Responsive text sizing */
+      .responsive-text {
+        font-size: clamp(0.75rem, 2vw, 0.875rem);
+      }
+
+      .responsive-header {
+        font-size: clamp(0.625rem, 1.5vw, 0.75rem);
+      }
     </style>
   </head>
   <body>
-    <main class="content">
+    <main class="p-2 sm:p-4 lg:p-6 xl:p-8">
       <!-- Modal Success -->
       <div
-        class="modal fade"
+        class="fixed inset-0 z-50 bg-black bg-opacity-50 modal-backdrop hidden"
         id="successModal"
-        tabindex="-1"
-        aria-labelledby="successModalLabel"
-        aria-hidden="true"
         th:if="${success}"
       >
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content border-success">
-            <div class="modal-header bg-success text-white">
-              <h5 class="modal-title" id="successModalLabel">Sukses</h5>
+        <div class="flex items-center justify-center min-h-screen p-4">
+          <div
+            class="bg-white rounded-lg shadow-xl max-w-md w-full modal-content mx-4"
+          >
+            <div
+              class="bg-green-500 text-white p-4 rounded-t-lg flex justify-between items-center"
+            >
+              <h5 class="text-lg font-semibold">Sukses</h5>
               <button
                 type="button"
-                class="btn-close btn-close-white"
-                data-bs-dismiss="modal"
-                aria-label="Tutup"
-              ></button>
+                class="text-white hover:text-gray-200 transition duration-200 p-1"
+                onclick="closeModal('successModal')"
+              >
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  ></path>
+                </svg>
+              </button>
             </div>
-            <div class="modal-body">
-              <p th:text="${success}"></p>
+            <div class="p-6">
+              <p th:text="${success}" class="text-gray-700"></p>
             </div>
-            <div class="modal-footer">
+            <div class="px-6 pb-6 flex justify-end">
               <button
                 type="button"
-                class="btn btn-success"
-                data-bs-dismiss="modal"
+                class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded transition duration-200"
+                onclick="closeModal('successModal')"
               >
                 OK
               </button>
@@ -56,34 +175,46 @@
 
       <!-- Modal Error -->
       <div
-        class="modal fade"
+        class="fixed inset-0 z-50 bg-black bg-opacity-50 modal-backdrop hidden"
         id="errorModal"
-        tabindex="-1"
-        aria-labelledby="errorModalLabel"
-        aria-hidden="true"
         th:if="${error}"
       >
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content border-danger">
-            <div class="modal-header bg-danger text-white">
-              <h5 class="modal-title" id="errorModalLabel">
-                Terjadi Kesalahan
-              </h5>
+        <div class="flex items-center justify-center min-h-screen p-4">
+          <div
+            class="bg-white rounded-lg shadow-xl max-w-md w-full modal-content mx-4"
+          >
+            <div
+              class="bg-red-500 text-white p-4 rounded-t-lg flex justify-between items-center"
+            >
+              <h5 class="text-lg font-semibold">Terjadi Kesalahan</h5>
               <button
                 type="button"
-                class="btn-close btn-close-white"
-                data-bs-dismiss="modal"
-                aria-label="Tutup"
-              ></button>
+                class="text-white hover:text-gray-200 transition duration-200 p-1"
+                onclick="closeModal('errorModal')"
+              >
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  ></path>
+                </svg>
+              </button>
             </div>
-            <div class="modal-body">
-              <p th:text="${error}"></p>
+            <div class="p-6">
+              <p th:text="${error}" class="text-gray-700"></p>
             </div>
-            <div class="modal-footer">
+            <div class="px-6 pb-6 flex justify-end">
               <button
                 type="button"
-                class="btn btn-danger"
-                data-bs-dismiss="modal"
+                class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded transition duration-200"
+                onclick="closeModal('errorModal')"
               >
                 OK
               </button>
@@ -92,163 +223,411 @@
         </div>
       </div>
 
-      <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Daftar Users</h2>
-        <form
-          class="d-flex"
-          th:action="@{/dashboard/barang/search}"
-          method="get"
-        >
-          <input
-            class="form-control me-2"
-            type="search"
-            name="keyword"
-            placeholder="Cari nama barang..."
-            aria-label="Search"
-            th:value="${keyword}"
-          />
-          <button class="btn btn-outline-success" type="submit">Cari</button>
-        </form>
-        <button
-          class="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#addBarangModal"
-        >
-          Tambah Barang
-        </button>
-      </div>
-
-      <div class="table-container">
-        <table class="table">
-          <thead>
-            <tr class="text-center">
-              <th>No</th>
-              <th>Nama Barang</th>
-              <th>Kategori Barang</th>
-              <th>Jumlah Barang</th>
-              <th>Status Barang</th>
-              <th>Keterangan Barang</th>
-              <th>Masuknya Barang</th>
-              <th>Barang Diperbarui</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:each="barang, iterstat : ${barangs}">
-              <td th:text="${iterstat.index + 1}" class="text-center"></td>
-              <td th:text="${barang.nama}" class="text-center"></td>
-              <td th:text="${barang.kategori}" class="text-center"></td>
-              <td th:text="${barang.jumlah}" class="text-center"></td>
-              <td th:text="${barang.status}" class="text-center"></td>
-              <td th:text="${barang.keterangan}"></td>
-              <td
-                th:text="${#temporals.format(barang.masuk, 'HH:mm, dd-MM-yyyy')}"
-                class="text-center"
-              ></td>
-              <td
-                th:if="${barang.barangUpdate != null}"
-                th:text="${#temporals.format(barang.barangUpdate, 'HH:mm, dd-MM-yyyy')}"
-                class="text-center"
-              ></td>
-              <td
-                th:unless="${barang.barangUpdate != null}"
-                class="text-center"
-              >
-                -
-              </td>
-              <td>
-                <button
-                  class="btn btn-sm btn-warning"
-                  data-bs-toggle="modal"
-                  data-bs-target="#editBarangModal"
-                  th:attr="data-id=${barang.id}, data-nama=${barang.nama}, data-kategori=${barang.kategori}, data-jumlah=${barang.jumlah}, data-status=${barang.jumlah},data-keterangan=${barang.keterangan}"
-                >
-                  Edit
-                </button>
-                <button
-                  class="btn btn-sm btn-danger"
-                  data-bs-toggle="modal"
-                  data-bs-target="#deleteBarangModal"
-                  th:attr="data-id=${barang.id}, data-nama=${barang.nama}, data-kategori=${barang.kategori}, data-jumlah=${barang.jumlah}, data-status=${barang.jumlah},data-keterangan=${barang.keterangan}"
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Add User Modal -->
+      <!-- Header Section -->
       <div
-        class="modal fade"
-        id="addBarangModal"
-        tabindex="-1"
-        aria-labelledby="addBarangModalLabel"
-        aria-hidden="true"
+        class="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-4 lg:mb-6 space-y-4 lg:space-y-0"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
+        <h2 class="text-xl sm:text-2xl font-bold text-gray-800">
+          Daftar Barang
+        </h2>
+
+        <div class="flex flex-col sm:flex-row gap-2 sm:gap-3">
+          <form
+            class="flex flex-1 sm:flex-none"
+            th:action="@{/dashboard/barang/search}"
+            method="get"
+          >
+            <input
+              class="flex-1 px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm"
+              type="search"
+              name="keyword"
+              placeholder="Cari nama barang..."
+              th:value="${keyword}"
+            />
+            <button
+              class="bg-green-500 hover:bg-green-600 text-white px-3 sm:px-4 py-2 rounded-r-md transition duration-200 text-sm font-medium"
+              type="submit"
+            >
+              Cari
+            </button>
+          </form>
+
+          <button
+            class="bg-blue-500 hover:bg-blue-600 text-white px-3 sm:px-4 py-2 rounded-md transition duration-200 whitespace-nowrap text-sm font-medium"
+            onclick="openModal('addBarangModal')"
+          >
+            + Tambah Barang
+          </button>
+        </div>
+      </div>
+
+      <!-- Desktop Table with Full Width Responsiveness -->
+      <div class="desktop-table bg-white rounded-lg shadow-md overflow-hidden">
+        <div
+          class="table-scroll overflow-x-auto overflow-y-auto max-h-[70vh] border border-gray-200"
+        >
+          <table class="w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50 sticky top-0 z-10">
+              <tr>
+                <th
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 text-left responsive-header font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  No
+                </th>
+                <th
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 text-left responsive-header font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Nama Barang
+                </th>
+                <th
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 text-left responsive-header font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Kategori
+                </th>
+                <th
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 text-left responsive-header font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Jumlah
+                </th>
+                <th
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 text-left responsive-header font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Status
+                </th>
+                <th
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 text-left responsive-header font-medium text-gray-500 uppercase tracking-wider hide-on-xl"
+                >
+                  Keterangan
+                </th>
+                <th
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 text-left responsive-header font-medium text-gray-500 uppercase tracking-wider hide-on-lg"
+                >
+                  Tanggal Masuk
+                </th>
+                <th
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 text-left responsive-header font-medium text-gray-500 uppercase tracking-wider hide-on-lg"
+                >
+                  Diperbarui
+                </th>
+                <th
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 text-center responsive-header font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Aksi
+                </th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <tr
+                th:each="barang, iterstat : ${barangs}"
+                class="hover:bg-gray-50 transition duration-150"
+              >
+                <td
+                  th:text="${iterstat.index + 1}"
+                  class="text-center px-2 sm:px-3 lg:px-4 py-2 sm:py-3 lg:py-4 whitespace-nowrap responsive-text text-gray-900 font-medium w-12"
+                ></td>
+                <td
+                  th:text="${barang.nama}"
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 lg:py-4 responsive-text text-gray-900 font-medium max-w-32 sm:max-w-48 truncate"
+                ></td>
+                <td
+                  th:text="${barang.kategori}"
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 lg:py-4 responsive-text text-gray-600 max-w-24 sm:max-w-32 truncate"
+                ></td>
+                <td
+                  th:text="${barang.jumlah}"
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 lg:py-4 whitespace-nowrap responsive-text text-gray-900"
+                ></td>
+                <td
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 lg:py-4 whitespace-nowrap"
+                >
+                  <span
+                    th:text="${barang.status}"
+                    th:classappend="${barang.status == 'Tersedia' ? 'status-tersedia' : 'status-kosong'}"
+                  ></span>
+                </td>
+                <td
+                  th:text="${barang.keterangan}"
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 lg:py-4 responsive-text text-gray-600 max-w-32 sm:max-w-48 lg:max-w-64 truncate hide-on-xl"
+                ></td>
+                <td
+                  th:text="${#temporals.format(barang.masuk, 'dd/MM/yy')}"
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 lg:py-4 whitespace-nowrap responsive-text text-gray-600 hide-on-lg"
+                ></td>
+                <td
+                  th:if="${barang.barangUpdate != null}"
+                  th:text="${#temporals.format(barang.barangUpdate, 'dd/MM/yy')}"
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 lg:py-4 whitespace-nowrap responsive-text text-gray-600 hide-on-lg"
+                ></td>
+                <td
+                  th:unless="${barang.barangUpdate != null}"
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 lg:py-4 whitespace-nowrap responsive-text text-gray-400 hide-on-lg"
+                >
+                  -
+                </td>
+                <td
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 lg:py-4 whitespace-nowrap text-center"
+                >
+                  <div class="flex justify-center space-x-1 sm:space-x-2">
+                    <button
+                      class="bg-yellow-500 hover:bg-yellow-600 text-white px-2 sm:px-3 py-1 rounded text-xs font-medium transition duration-200 shadow-sm"
+                      onclick="openEditModal(this)"
+                      th:attr="data-id=${barang.id}, data-nama=${barang.nama}, data-kategori=${barang.kategori}, data-jumlah=${barang.jumlah}, data-status=${barang.status}, data-keterangan=${barang.keterangan}"
+                    >
+                      <span class="hidden sm:inline">Edit</span>
+                      <span class="sm:hidden">E</span>
+                    </button>
+                    <button
+                      class="bg-red-500 hover:bg-red-600 text-white px-2 sm:px-3 py-1 rounded text-xs font-medium transition duration-200 shadow-sm"
+                      onclick="openDeleteModal(this)"
+                      th:attr="data-id=${barang.id}, data-nama=${barang.nama}"
+                    >
+                      <span class="hidden sm:inline">Hapus</span>
+                      <span class="sm:hidden">H</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <!-- Empty state -->
+              <tr th:if="${#lists.isEmpty(barangs)}">
+                <td colspan="9" class="px-4 py-8 text-center text-gray-500">
+                  <div class="flex flex-col items-center">
+                    <svg
+                      class="w-12 h-12 text-gray-300 mb-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2 2m16-7H4m16 0l-2-9m-12 9l2-9"
+                      ></path>
+                    </svg>
+                    <p class="text-base sm:text-lg font-medium">
+                      Tidak ada data barang
+                    </p>
+                    <p class="text-sm">
+                      Tambahkan barang baru untuk mulai mengelola inventori
+                    </p>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Mobile Cards with Scrollable Container -->
+      <div class="mobile-card">
+        <div
+          class="max-h-[70vh] overflow-y-auto table-scroll space-y-3 sm:space-y-4"
+        >
+          <div
+            th:each="barang, iterstat : ${barangs}"
+            class="bg-white rounded-lg shadow-md p-3 sm:p-4 border border-gray-200 hover:shadow-lg transition duration-200"
+          >
+            <div class="flex justify-between items-start mb-3">
+              <div class="flex-1 min-w-0">
+                <h3
+                  class="font-semibold text-base sm:text-lg text-gray-800 mb-1 truncate"
+                  th:text="${barang.nama}"
+                ></h3>
+                <p
+                  class="text-sm text-gray-600 truncate"
+                  th:text="${barang.kategori}"
+                ></p>
+              </div>
+              <span
+                th:text="${barang.status}"
+                th:classappend="${barang.status == 'Tersedia' ? 'status-tersedia' : 'status-kosong'}"
+              ></span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 text-sm mb-4">
+              <div class="flex flex-col">
+                <span class="text-gray-500 text-xs uppercase tracking-wide"
+                  >Jumlah</span
+                >
+                <span
+                  class="font-semibold text-gray-900 mt-1"
+                  th:text="${barang.jumlah}"
+                ></span>
+              </div>
+              <div class="flex flex-col">
+                <span class="text-gray-500 text-xs uppercase tracking-wide"
+                  >Tanggal</span
+                >
+                <span
+                  class="font-medium text-gray-700 mt-1"
+                  th:text="${#temporals.format(barang.masuk, 'dd/MM/yyyy')}"
+                ></span>
+              </div>
+            </div>
+
+            <div class="mb-4" th:if="${barang.keterangan}">
+              <span class="text-gray-500 text-xs uppercase tracking-wide"
+                >Keterangan</span
+              >
+              <p
+                class="text-sm text-gray-700 mt-1 leading-relaxed line-clamp-2"
+                th:text="${barang.keterangan}"
+              ></p>
+            </div>
+
+            <div class="flex gap-2 pt-3 border-t border-gray-100">
+              <button
+                class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-3 rounded text-sm font-medium transition duration-200 shadow-sm"
+                onclick="openEditModal(this)"
+                th:attr="data-id=${barang.id}, data-nama=${barang.nama}, data-kategori=${barang.kategori}, data-jumlah=${barang.jumlah}, data-status=${barang.status}, data-keterangan=${barang.keterangan}"
+              >
+                Edit
+              </button>
+              <button
+                class="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 px-3 rounded text-sm font-medium transition duration-200 shadow-sm"
+                onclick="openDeleteModal(this)"
+                th:attr="data-id=${barang.id}, data-nama=${barang.nama}"
+              >
+                Hapus
+              </button>
+            </div>
+          </div>
+
+          <!-- Empty state for mobile -->
+          <div th:if="${#lists.isEmpty(barangs)}" class="text-center py-12">
+            <svg
+              class="w-16 h-16 text-gray-300 mx-auto mb-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2 2m16-7H4m16 0l-2-9m-12 9l2-9"
+              ></path>
+            </svg>
+            <h3 class="text-lg font-medium text-gray-700 mb-2">
+              Tidak ada data barang
+            </h3>
+            <p class="text-sm text-gray-500 mb-4">
+              Tambahkan barang baru untuk mulai mengelola inventori
+            </p>
+            <button
+              class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md transition duration-200 font-medium"
+              onclick="openModal('addBarangModal')"
+            >
+              + Tambah Barang
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add Barang Modal -->
+      <div
+        class="fixed inset-0 z-50 bg-black bg-opacity-50 modal-backdrop hidden"
+        id="addBarangModal"
+      >
+        <div class="flex items-center justify-center min-h-screen p-4">
+          <div
+            class="bg-white rounded-lg shadow-xl max-w-md w-full max-h-screen overflow-y-auto modal-content mx-4"
+          >
             <form th:action="@{/dashboard/barang/add}" method="post">
-              <div class="modal-header">
-                <h5 class="modal-title" id="addBarangModalLabel">
-                  Tambah Barang
+              <div
+                class="bg-gray-50 px-6 py-4 rounded-t-lg flex justify-between items-center sticky top-0"
+              >
+                <h5 class="text-lg font-semibold text-gray-800">
+                  Tambah Barang Baru
                 </h5>
                 <button
                   type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                  class="text-gray-500 hover:text-gray-700 transition duration-200 p-1"
+                  onclick="closeModal('addBarangModal')"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    ></path>
+                  </svg>
+                </button>
               </div>
-              <div class="modal-body">
-                <div class="form-group mb-3">
-                  <label for="nama">Nama Barang:</label>
+              <div class="p-6 space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2"
+                    >Nama Barang <span class="text-red-500">*</span></label
+                  >
                   <input
                     type="text"
-                    class="form-control"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                     name="nama"
                     required
                     minlength="1"
+                    placeholder="Masukkan nama barang"
                   />
                 </div>
-                <div class="form-group mb-3">
-                  <label for="kategori">Kategori Barang:</label>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2"
+                    >Kategori Barang <span class="text-red-500">*</span></label
+                  >
                   <input
                     type="text"
-                    class="form-control"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                     name="kategori"
                     required
-                    minlength="8"
+                    placeholder="Masukkan kategori barang"
                   />
                 </div>
-                <div class="form-group mb-3">
-                  <label for="jumlah">Jumlah Barang:</label>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2"
+                    >Jumlah Barang <span class="text-red-500">*</span></label
+                  >
                   <input
                     type="number"
-                    class="form-control"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                     name="jumlah"
                     required
+                    min="0"
+                    placeholder="0"
                   />
                 </div>
-                <div class="form-group mb-3">
-                  <label for="keterangan">Keterangan Barang:</label>
-                  <input
-                    type="text"
-                    class="form-control"
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2"
+                    >Keterangan Barang
+                    <span class="text-red-500">*</span></label
+                  >
+                  <textarea
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 resize-none"
                     name="keterangan"
+                    rows="3"
                     required
-                  />
+                    placeholder="Masukkan keterangan barang"
+                  ></textarea>
                 </div>
               </div>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Simpan</button>
+              <div
+                class="bg-gray-50 px-6 py-4 rounded-b-lg flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3 sticky bottom-0"
+              >
                 <button
                   type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
+                  class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition duration-200 font-medium"
+                  onclick="closeModal('addBarangModal')"
                 >
                   Batal
+                </button>
+                <button
+                  type="submit"
+                  class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition duration-200 font-medium"
+                >
+                  Simpan Barang
                 </button>
               </div>
             </form>
@@ -256,73 +635,105 @@
         </div>
       </div>
 
-      <!-- Modal Edit Barang -->
+      <!-- Edit Barang Modal -->
       <div
-        class="modal fade"
+        class="fixed inset-0 z-50 bg-black bg-opacity-50 modal-backdrop hidden"
         id="editBarangModal"
-        tabindex="-1"
-        aria-labelledby="editBarangModalLabel"
-        aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
+        <div class="flex items-center justify-center min-h-screen p-4">
+          <div
+            class="bg-white rounded-lg shadow-xl max-w-md w-full max-h-screen overflow-y-auto modal-content mx-4"
+          >
             <form id="editBarangForm" method="post">
-              <div class="modal-header">
-                <h5 class="modal-title" id="editBarangModalLabel">
-                  Edit Barang
-                </h5>
+              <div
+                class="bg-gray-50 px-6 py-4 rounded-t-lg flex justify-between items-center sticky top-0"
+              >
+                <h5 class="text-lg font-semibold text-gray-800">Edit Barang</h5>
                 <button
                   type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                  class="text-gray-500 hover:text-gray-700 transition duration-200 p-1"
+                  onclick="closeModal('editBarangModal')"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    ></path>
+                  </svg>
+                </button>
               </div>
-              <div class="modal-body">
+              <div class="p-6 space-y-4">
                 <input type="hidden" id="editId" name="id" />
-                <div class="mb-3">
-                  <label for="editNama" class="form-label">Nama</label>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2"
+                    >Nama Barang <span class="text-red-500">*</span></label
+                  >
                   <input
                     type="text"
-                    class="form-control"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                     id="editNama"
                     name="nama"
                     required
                   />
                 </div>
-                <div class="mb-3">
-                  <label for="editKategori" class="form-label">Kategori</label>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2"
+                    >Kategori <span class="text-red-500">*</span></label
+                  >
                   <input
                     type="text"
-                    class="form-control"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                     id="editKategori"
                     name="kategori"
+                    required
                   />
                 </div>
-                <div class="mb-3">
-                  <label for="editJumlah" class="form-label">Jumlah</label>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2"
+                    >Jumlah <span class="text-red-500">*</span></label
+                  >
                   <input
                     type="number"
-                    class="form-control"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                     id="editJumlah"
                     name="jumlah"
                     min="0"
                     required
                   />
                 </div>
-                <div class="mb-3">
-                  <label for="editKeterangan" class="form-label"
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2"
                     >Keterangan</label
                   >
                   <textarea
-                    class="form-control"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 resize-none"
                     id="editKeterangan"
                     name="keterangan"
+                    rows="3"
                   ></textarea>
                 </div>
               </div>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">
+              <div
+                class="bg-gray-50 px-6 py-4 rounded-b-lg flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3 sticky bottom-0"
+              >
+                <button
+                  type="button"
+                  class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition duration-200 font-medium"
+                  onclick="closeModal('editBarangModal')"
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition duration-200 font-medium"
+                >
                   Simpan Perubahan
                 </button>
               </div>
@@ -331,52 +742,137 @@
         </div>
       </div>
 
-      <!-- Modal Delete Barang -->
+      <!-- Delete Barang Modal -->
       <div
-        class="modal fade"
+        class="fixed inset-0 z-50 bg-black bg-opacity-50 modal-backdrop hidden"
         id="deleteBarangModal"
-        tabindex="-1"
-        aria-labelledby="deleteBarangModalLabel"
-        aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <form method="post" id="deleteBarangForm" class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="deleteBarangModalLabel">
-                Hapus Barang
-              </h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <input type="hidden" id="deleteId" name="id" />
-              <p>
-                Apakah kamu yakin ingin menghapus barang
-                <strong id="deleteNama"></strong>?
-              </p>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-danger">Hapus</button>
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
+        <div class="flex items-center justify-center min-h-screen p-4">
+          <div
+            class="bg-white rounded-lg shadow-xl max-w-md w-full modal-content mx-4"
+          >
+            <form method="post" id="deleteBarangForm">
+              <div
+                class="bg-gray-50 px-6 py-4 rounded-t-lg flex justify-between items-center"
               >
-                Batal
-              </button>
-            </div>
-          </form>
+                <h5 class="text-lg font-semibold text-gray-800">
+                  Konfirmasi Hapus
+                </h5>
+                <button
+                  type="button"
+                  class="text-gray-500 hover:text-gray-700 transition duration-200 p-1"
+                  onclick="closeModal('deleteBarangModal')"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+              <div class="p-6">
+                <input type="hidden" id="deleteId" name="id" />
+                <div class="flex items-center mb-4">
+                  <div
+                    class="flex-shrink-0 w-10 h-10 bg-red-100 rounded-full flex items-center justify-center"
+                  >
+                    <svg
+                      class="w-6 h-6 text-red-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div class="ml-4">
+                    <h3 class="text-lg font-medium text-gray-900">
+                      Hapus Barang
+                    </h3>
+                    <p class="text-sm text-gray-500">
+                      Tindakan ini tidak dapat dibatalkan
+                    </p>
+                  </div>
+                </div>
+                <p class="text-gray-700">
+                  Apakah Anda yakin ingin menghapus barang
+                  <strong
+                    id="deleteNama"
+                    class="text-red-600 font-semibold"
+                  ></strong
+                  >? Semua data yang terkait dengan barang ini akan hilang
+                  secara permanen.
+                </p>
+              </div>
+              <div
+                class="bg-gray-50 px-6 py-4 rounded-b-lg flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3"
+              >
+                <button
+                  type="button"
+                  class="bg-gray-300 hover:bg-gray-400 text-gray-700 px-4 py-2 rounded transition duration-200 font-medium"
+                  onclick="closeModal('deleteBarangModal')"
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition duration-200 font-medium"
+                >
+                  Ya, Hapus Barang
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
 
       <script>
-        const editModal = document.getElementById("editBarangModal");
-        editModal.addEventListener("show.bs.modal", function (event) {
-          const button = event.relatedTarget;
+        // Modal functions with animations
+        function openModal(modalId) {
+          const modal = document.getElementById(modalId);
+          const backdrop = modal;
+          const content = modal.querySelector(".modal-content");
+
+          modal.classList.remove("hidden");
+
+          // Force reflow
+          modal.offsetHeight;
+
+          backdrop.classList.add("show");
+          content.classList.add("show");
+        }
+
+        function closeModal(modalId) {
+          const modal = document.getElementById(modalId);
+          const backdrop = modal;
+          const content = modal.querySelector(".modal-content");
+
+          backdrop.classList.remove("show");
+          backdrop.classList.add("hide");
+          content.classList.remove("show");
+          content.classList.add("hide");
+
+          setTimeout(() => {
+            modal.classList.add("hidden");
+            backdrop.classList.remove("hide");
+            content.classList.remove("hide");
+          }, 300);
+        }
+
+        function openEditModal(button) {
           const id = button.getAttribute("data-id");
           const nama = button.getAttribute("data-nama");
           const kategori = button.getAttribute("data-kategori");
@@ -390,18 +886,60 @@
 
           document.getElementById("editBarangForm").action =
             `/dashboard/barang/edit/${id}`;
-        });
+          openModal("editBarangModal");
+        }
 
-        const deleteModal = document.getElementById("deleteBarangModal");
-        deleteModal.addEventListener("show.bs.modal", function (event) {
-          const button = event.relatedTarget;
+        function openDeleteModal(button) {
           const id = button.getAttribute("data-id");
           const nama = button.getAttribute("data-nama");
-          document.getElementById("deleteId").value =
-            button.getAttribute("data-id");
+
+          document.getElementById("deleteId").value = id;
           document.getElementById("deleteNama").innerText = nama;
           document.getElementById("deleteBarangForm").action =
             `/dashboard/barang/delete/${id}`;
+          openModal("deleteBarangModal");
+        }
+
+        // Close modal on escape key
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape") {
+            const modals = [
+              "successModal",
+              "errorModal",
+              "addBarangModal",
+              "editBarangModal",
+              "deleteBarangModal",
+            ];
+            modals.forEach((modalId) => {
+              const modal = document.getElementById(modalId);
+              if (modal && !modal.classList.contains("hidden")) {
+                closeModal(modalId);
+              }
+            });
+          }
+        });
+
+        // Close modal on backdrop click
+        document.addEventListener("click", function (event) {
+          if (event.target.classList.contains("modal-backdrop")) {
+            const modals = [
+              "successModal",
+              "errorModal",
+              "addBarangModal",
+              "editBarangModal",
+              "deleteBarangModal",
+            ];
+            modals.forEach((modalId) => {
+              const modal = document.getElementById(modalId);
+              if (
+                modal &&
+                !modal.classList.contains("hidden") &&
+                event.target === modal
+              ) {
+                closeModal(modalId);
+              }
+            });
+          }
         });
 
         document.addEventListener("DOMContentLoaded", function () {
@@ -409,11 +947,11 @@
           const errorModalEl = document.getElementById("errorModal");
 
           if (successModalEl) {
-            new bootstrap.Modal(successModalEl).show();
+            openModal("successModal");
           }
 
           if (errorModalEl) {
-            new bootstrap.Modal(errorModalEl).show();
+            openModal("errorModal");
           }
         });
       </script>
