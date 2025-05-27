@@ -5,60 +5,60 @@
 >
   <head th:insert="~{fragments/head :: common_header(~{::title},~{::style},_)}">
     <title>Dashboard | Stocko Supply</title>
-    <style>
-      .content {
-        margin-left: 20px;
-        padding: 30px;
-      }
-
-      .card i {
-        font-size: 2rem;
-      }
-    </style>
+    <style></style>
   </head>
   <body>
-    <main class="content">
-      <h3 class="mb-4">Dashboard Utama</h3>
+    <main class="px-4 py-6 md:px-8 lg:px-10">
+      <h3 class="text-2xl font-semibold text-gray-800 mb-6">Dashboard Utama</h3>
 
-      <div class="row g-4">
-        <div class="col-md-4">
-          <div class="card border-primary shadow-sm">
-            <div
-              class="card-body d-flex justify-content-between align-items-center"
-            >
-              <div>
-                <h5 class="card-title mb-1">Total Barang</h5>
-                <p class="card-text fs-4 fw-bold">12</p>
-              </div>
-              <i class="bi bi-box text-primary"></i>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Total Barang Card -->
+        <div
+          class="bg-white rounded-lg shadow-md border-l-4 border-blue-500 overflow-hidden hover:shadow-lg transition-shadow duration-300"
+        >
+          <div class="p-5 flex justify-between items-center">
+            <div>
+              <h5 class="text-gray-700 font-medium mb-1">Total Barang</h5>
+              <p class="text-3xl font-bold text-gray-900">9</p>
+            </div>
+            <div class="bg-blue-100 p-3 rounded-full">
+              <i class="bi bi-box text-3xl text-blue-500"></i>
             </div>
           </div>
         </div>
 
-        <div class="col-md-4">
-          <div class="card border-success shadow-sm">
-            <div
-              class="card-body d-flex justify-content-between align-items-center"
-            >
-              <div>
-                <h5 class="card-title mb-1">Total Users</h5>
-                <p class="card-text fs-4 fw-bold">5</p>
-              </div>
-              <i class="bi bi-people text-success"></i>
+        <!-- Total Users Card -->
+        <div
+          class="bg-white rounded-lg shadow-md border-l-4 border-green-500 overflow-hidden hover:shadow-lg transition-shadow duration-300"
+        >
+          <div class="p-5 flex justify-between items-center">
+            <div>
+              <h5 class="text-gray-700 font-medium mb-1">Total Pengguna</h5>
+              <p class="text-3xl font-bold text-gray-900">4</p>
+            </div>
+            <div class="bg-green-100 p-3 rounded-full">
+              <i class="bi bi-people text-3xl text-green-500"></i>
             </div>
           </div>
         </div>
 
-        <div class="col-md-4">
-          <div class="card border-warning shadow-sm">
-            <div
-              class="card-body d-flex justify-content-between align-items-center"
-            >
-              <div>
-                <h5 class="card-title mb-1">Laporan Hari Ini</h5>
-                <p class="card-text fs-4 fw-bold">2 barang masuk</p>
-              </div>
-              <i class="bi bi-bar-chart-line text-warning"></i>
+        <!-- Today's Report Card -->
+        <div
+          class="bg-white rounded-lg shadow-md border-l-4 border-yellow-500 overflow-hidden hover:shadow-lg transition-shadow duration-300"
+        >
+          <div class="p-5 flex justify-between items-center">
+            <div>
+              <h5 class="text-gray-700 font-medium mb-1">Barang Hari Ini</h5>
+              <p class="text-3xl font-bold text-gray-900">
+                <span
+                  th:if="${totalBarangHariIni > 0}"
+                  th:text="${totalBarangHariIni}"
+                ></span>
+                <span th:unless="${totalBarangHariIni > 0}">0</span>
+              </p>
+            </div>
+            <div class="bg-yellow-100 p-3 rounded-full">
+              <i class="bi bi-bar-chart-line text-3xl text-yellow-500"></i>
             </div>
           </div>
         </div>
