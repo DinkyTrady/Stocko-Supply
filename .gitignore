@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+## NodeJS ##
+node_modules/
+src/main/resources/static/css/style.css
