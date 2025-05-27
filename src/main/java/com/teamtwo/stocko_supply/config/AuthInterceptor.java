@@ -11,9 +11,10 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        // Allow access to login and registration pages
+        // Allow access to login pages
         String uri = request.getRequestURI();
-        if (uri.startsWith("/auth") || uri.startsWith("/assets") || uri.startsWith("/webjars")) {
+        if (uri.startsWith("/auth") || uri.startsWith("/assets") || uri.startsWith("/webjars")
+                || uri.startsWith("/css")) {
             return true;
         }
 
