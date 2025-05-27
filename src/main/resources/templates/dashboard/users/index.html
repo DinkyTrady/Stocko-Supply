@@ -387,6 +387,7 @@
               </div>
               <span
                 th:text="${user.role}"
+                class="rounded"
                 th:classappend="${user.role == 'admin' ? 'role-admin' : 'role-user'}"
               ></span>
             </div>
