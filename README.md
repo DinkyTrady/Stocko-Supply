@@ -21,8 +21,43 @@ Aplikasi ini menyediakan fitur-fitur seperti manajemen stok barang, kategori, su
 - **mvn**
 - **Spring Boot**
 - **PostgreSql**
+- **NodeJs**
 - **TailwindCSS**
 - **Jquery**
+
+## Cara menjalankan Aplikasi
+
+### Prasyarat
+
+    Pastikan di komputer anda telah terinstall:
+
+- JDK 21
+- Maven
+- NodeJs
+
+### Langkah - langkah
+
+1. Clone repository ini:
+
+   ```bash
+   git clone --depth=1 https://github.com/DinkyTrady/Stocko-Supply.git
+   cd stocko-supply
+   ```
+
+2. Konfigurasi database PostgreSQL:
+   - Buat database baru dengan nama `stocko_supply`.
+   - Ubah konfigurasi database pada file `src/main/resources/application.properties` sesuai dengan pengaturan database kamu!.
+3. Jalankan aplikasi
+
+   ```bash
+   ./mvn spring-boot:run
+   ```
+
+4. Akses browser kamu dan buka url berikut:
+
+   ```
+   http://localhost:8080
+   ```
 
 ## Kontributor
 
