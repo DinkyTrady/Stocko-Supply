@@ -1,162 +1,367 @@
 <!doctype html>
-<html lang="en" th:insert="~{fragments/layout :: content(~{::head},~{::main})}">
+<html
+  lang="en"
+  th:insert="~{ fragments/layout :: content(~{::head},~{::main}) }"
+>
   <head th:insert="~{fragments/head :: common_header(~{::title},~{::style},_)}">
     <title>Dashboard Users - Admin | Stocko Supply</title>
     <style>
-      .table-container {
-        background-color: #eff1f5;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
-
       .content {
         margin-left: 20px;
         padding: 30px;
       }
+
+      .card i {
+        font-size: 2rem;
+      }
+
+      /* Modal animations */
+      .modal-backdrop {
+        transition: opacity 0.3s ease-out;
+      }
+
+      .modal-backdrop.show {
+        opacity: 1;
+      }
+
+      .modal-backdrop.hide {
+        opacity: 0;
+      }
+
+      .modal-content {
+        transition: all 0.3s ease-out;
+        transform: scale(0.7) translateY(-50px);
+        opacity: 0;
+      }
+
+      .modal-content.show {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+
+      .modal-content.hide {
+        transform: scale(0.7) translateY(-50px);
+        opacity: 0;
+      }
+
+      /* Custom scrollbar for table container */
+      .table-scroll::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      .table-scroll::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+      }
+
+      .table-scroll::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 4px;
+      }
+
+      .table-scroll::-webkit-scrollbar-thumb:hover {
+        background: #a8a8a8;
+      }
+
+      /* Responsive table breakpoints */
+      @media (max-width: 1024px) {
+        .mobile-card {
+          display: block;
+        }
+
+        .desktop-table {
+          display: none;
+        }
+      }
+
+      @media (min-width: 1025px) {
+        .mobile-card {
+          display: none;
+        }
+
+        .desktop-table {
+          display: block;
+        }
+      }
+
+      /* Responsive table columns */
+      @media (min-width: 1025px) and (max-width: 1280px) {
+        .hide-on-lg {
+          display: none;
+        }
+      }
+
+      /* Role badges */
+      .role-admin {
+        background-color: #d1fae5; /* Tailwind green-100 */
+        color: #065f46; /* Tailwind green-800 */
+        padding: 0.25rem 0.5rem;
+      }
+
+      .role-user {
+        background-color: #dbeafe; /* Tailwind blue-100 */
+        color: #1e40af; /* Tailwind blue-800 */
+        padding: 0.25rem 0.5rem;
+      }
+
+      /* Responsive text sizing */
+      .responsive-text {
+        font-size: clamp(0.75rem, 2vw, 0.875rem);
+      }
+
+      .responsive-header {
+        font-size: clamp(0.625rem, 1.5vw, 0.75rem);
+      }
     </style>
   </head>
   <body>
-    <main class="content">
-      <div class="container mt-4">
-        <!-- Modal Success -->
-        <div
-          class="modal fade"
-          id="successModal"
-          tabindex="-1"
-          aria-labelledby="successModalLabel"
-          aria-hidden="true"
-          th:if="${success}"
-        >
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-success">
-              <div class="modal-header bg-success text-white">
-                <h5 class="modal-title" id="successModalLabel">Sukses</h5>
-                <button
-                  type="button"
-                  class="btn-close btn-close-white"
-                  data-bs-dismiss="modal"
-                  aria-label="Tutup"
-                ></button>
-              </div>
-              <div class="modal-body">
-                <p th:text="${success}"></p>
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-success"
-                  data-bs-dismiss="modal"
+    <main class="p-2 sm:p-4 lg:p-6 xl:p-8">
+      <!-- Modal Success -->
+      <div
+        class="fixed inset-0 z-50 bg-black bg-opacity-50 modal-backdrop hidden"
+        id="successModal"
+        th:if="${success}"
+      >
+        <div class="flex items-center justify-center min-h-screen p-4">
+          <div
+            class="bg-white rounded-lg shadow-xl max-w-md w-full modal-content mx-4"
+          >
+            <div
+              class="bg-green-500 text-white p-4 rounded-t-lg flex justify-between items-center"
+            >
+              <h5 class="text-lg font-semibold">Sukses</h5>
+              <button
+                type="button"
+                class="text-white hover:text-gray-200 transition duration-200 p-1"
+                onclick="closeModal('successModal')"
+              >
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  OK
-                </button>
-              </div>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <div class="p-6">
+              <p th:text="${success}" class="text-gray-700"></p>
+            </div>
+            <div class="px-6 pb-6 flex justify-end">
+              <button
+                type="button"
+                class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded transition duration-200"
+                onclick="closeModal('successModal')"
+              >
+                OK
+              </button>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- Modal Error -->
-        <div
-          class="modal fade"
-          id="errorModal"
-          tabindex="-1"
-          aria-labelledby="errorModalLabel"
-          aria-hidden="true"
-          th:if="${error}"
-        >
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-danger">
-              <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title" id="errorModalLabel">
-                  Terjadi Kesalahan
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close btn-close-white"
-                  data-bs-dismiss="modal"
-                  aria-label="Tutup"
-                ></button>
-              </div>
-              <div class="modal-body">
-                <p th:text="${error}"></p>
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-danger"
-                  data-bs-dismiss="modal"
+      <!-- Modal Error -->
+      <div
+        class="fixed inset-0 z-50 bg-black bg-opacity-50 modal-backdrop hidden"
+        id="errorModal"
+        th:if="${error}"
+      >
+        <div class="flex items-center justify-center min-h-screen p-4">
+          <div
+            class="bg-white rounded-lg shadow-xl max-w-md w-full modal-content mx-4"
+          >
+            <div
+              class="bg-red-500 text-white p-4 rounded-t-lg flex justify-between items-center"
+            >
+              <h5 class="text-lg font-semibold">Terjadi Kesalahan</h5>
+              <button
+                type="button"
+                class="text-white hover:text-gray-200 transition duration-200 p-1"
+                onclick="closeModal('errorModal')"
+              >
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  OK
-                </button>
-              </div>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <div class="p-6">
+              <p th:text="${error}" class="text-gray-700"></p>
+            </div>
+            <div class="px-6 pb-6 flex justify-end">
+              <button
+                type="button"
+                class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded transition duration-200"
+                onclick="closeModal('errorModal')"
+              >
+                OK
+              </button>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <h2>Daftar Users</h2>
+      <!-- Header Section -->
+      <div
+        class="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-4 lg:mb-6 space-y-4 lg:space-y-0"
+      >
+        <h2 class="text-xl sm:text-2xl font-bold text-gray-800">
+          Daftar Users
+        </h2>
+
+        <div class="flex flex-col sm:flex-row gap-2 sm:gap-3">
           <form
-            class="d-flex"
+            class="flex flex-1 sm:flex-none"
             th:action="@{/dashboard/users/search}"
             method="get"
           >
             <input
-              class="form-control me-2"
+              class="flex-1 px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
               type="search"
               name="keyword"
               placeholder="Cari username..."
-              aria-label="Search"
               th:value="${keyword}"
             />
-            <button class="btn btn-outline-success" type="submit">Cari</button>
+            <button
+              class="bg-green-500 hover:bg-green-600 text-white px-3 sm:px-4 py-2 rounded-r-md transition duration-200 text-sm font-medium"
+              type="submit"
+            >
+              Cari
+            </button>
           </form>
+
           <button
-            class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#addUserModal"
+            class="bg-blue-500 hover:bg-blue-600 text-white px-3 sm:px-4 py-2 rounded-md transition duration-200 whitespace-nowrap text-sm font-medium"
+            onclick="openModal('addUserModal')"
           >
-            Tambah User
+            + Tambah User
           </button>
         </div>
+      </div>
 
-        <div class="table-container">
-          <table class="table">
-            <thead>
+      <!-- Desktop Table with Full Width Responsiveness -->
+      <div class="desktop-table bg-white rounded-lg shadow-md overflow-hidden">
+        <div
+          class="table-scroll overflow-x-auto overflow-y-auto max-h-[70vh] border border-gray-200"
+        >
+          <table class="w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50 sticky top-0 z-10">
               <tr>
-                <th>No</th>
-                <th>Username</th>
-                <th>Password</th>
-                <th>Role</th>
-                <th>Aksi</th>
+                <th
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 text-left responsive-header font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  No
+                </th>
+                <th
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 text-left responsive-header font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Username
+                </th>
+                <th
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 text-left responsive-header font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Password
+                </th>
+                <th
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 text-left responsive-header font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Role
+                </th>
+                <th
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 text-center responsive-header font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Aksi
+                </th>
               </tr>
             </thead>
-            <tbody>
-              <tr th:each="user, iterstat : ${users}">
-                <td th:text="${iterstat.index + 1}"></td>
-                <td th:text="${user.username}"></td>
-                <td th:text="${user.password}"></td>
-                <td th:text="${user.role}"></td>
-                <td>
-                  <button
-                    class="btn btn-sm btn-warning"
-                    data-bs-toggle="modal"
-                    data-bs-target="#editUserModal"
-                    th:attr="data-id=${user.id},
-                                   data-username=${user.username},
-                                   data-role=${user.role}"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-sm btn-danger"
-                    data-bs-toggle="modal"
-                    data-bs-target="#deleteUserModal"
-                    th:attr="data-id=${user.id},
-                                   data-username=${user.username}"
-                  >
-                    Hapus
-                  </button>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <tr
+                th:each="user, iterstat : ${users}"
+                class="hover:bg-gray-50 transition duration-150"
+              >
+                <td
+                  th:text="${iterstat.index + 1}"
+                  class="text-center px-2 sm:px-3 lg:px-4 py-2 sm:py-3 lg:py-4 whitespace-nowrap responsive-text text-gray-900 font-medium w-12"
+                ></td>
+                <td
+                  th:text="${user.username}"
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 lg:py-4 responsive-text text-gray-900 font-medium max-w-32 sm:max-w-48 truncate"
+                ></td>
+                <td
+                  th:text="${user.password}"
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 lg:py-4 responsive-text text-gray-600 max-w-24 sm:max-w-32 truncate"
+                ></td>
+                <td
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 lg:py-4 whitespace-nowrap"
+                >
+                  <span
+                    th:text="${user.role}"
+                    th:classappend="${user.role == 'admin' ? 'role-admin' : 'role-user'}"
+                  ></span>
+                </td>
+                <td
+                  class="px-2 sm:px-3 lg:px-4 py-2 sm:py-3 lg:py-4 whitespace-nowrap text-center"
+                >
+                  <div class="flex justify-center space-x-1 sm:space-x-2">
+                    <button
+                      class="bg-yellow-500 hover:bg-yellow-600 text-white px-2 sm:px-3 py-1 rounded text-xs font-medium transition duration-200 shadow-sm"
+                      onclick="openEditModal(this)"
+                      th:attr="data-id=${user.id}, data-username=${user.username}, data-role=${user.role}"
+                    >
+                      <span class="hidden sm:inline">Edit</span>
+                      <span class="sm:hidden">E</span>
+                    </button>
+                    <button
+                      class="bg-red-500 hover:bg-red-600 text-white px-2 sm:px-3 py-1 rounded text-xs font-medium transition duration-200 shadow-sm"
+                      onclick="openDeleteModal(this)"
+                      th:attr="data-id=${user.id}, data-username=${user.username}"
+                    >
+                      <span class="hidden sm:inline">Hapus</span>
+                      <span class="sm:hidden">H</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <!-- Empty state -->
+              <tr th:if="${#lists.isEmpty(users)}">
+                <td colspan="5" class="px-4 py-8 text-center text-gray-500">
+                  <div class="flex flex-col items-center">
+                    <svg
+                      class="w-12 h-12 text-gray-300 mb-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                      ></path>
+                    </svg>
+                    <p class="text-base sm:text-lg font-medium">
+                      Tidak ada data users
+                    </p>
+                    <p class="text-sm">
+                      Tambahkan user baru untuk mulai mengelola akses
+                    </p>
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -164,63 +369,179 @@
         </div>
       </div>
 
+      <!-- Mobile Cards with Scrollable Container -->
+      <div class="mobile-card">
+        <div
+          class="max-h-[70vh] overflow-y-auto table-scroll space-y-3 sm:space-y-4"
+        >
+          <div
+            th:each="user, iterstat : ${users}"
+            class="bg-white rounded-lg shadow-md p-3 sm:p-4 border border-gray-200 hover:shadow-lg transition duration-200"
+          >
+            <div class="flex justify-between items-start mb-3">
+              <div class="flex-1 min-w-0">
+                <h3
+                  class="font-semibold text-base sm:text-lg text-gray-800 mb-1 truncate"
+                  th:text="${user.username}"
+                ></h3>
+              </div>
+              <span
+                th:text="${user.role}"
+                th:classappend="${user.role == 'admin' ? 'role-admin' : 'role-user'}"
+              ></span>
+            </div>
+
+            <div class="flex flex-col mb-4">
+              <span class="text-gray-500 text-xs uppercase tracking-wide"
+                >Password</span
+              >
+              <span
+                class="font-medium text-gray-700 mt-1 break-all"
+                th:text="${user.password}"
+              ></span>
+            </div>
+
+            <div class="flex gap-2 pt-3 border-t border-gray-100">
+              <button
+                class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-3 rounded text-sm font-medium transition duration-200 shadow-sm"
+                onclick="openEditModal(this)"
+                th:attr="data-id=${user.id}, data-username=${user.username}, data-role=${user.role}"
+              >
+                Edit
+              </button>
+              <button
+                class="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 px-3 rounded text-sm font-medium transition duration-200 shadow-sm"
+                onclick="openDeleteModal(this)"
+                th:attr="data-id=${user.id}, data-username=${user.username}"
+              >
+                Hapus
+              </button>
+            </div>
+          </div>
+
+          <!-- Empty state for mobile -->
+          <div th:if="${#lists.isEmpty(users)}" class="text-center py-12">
+            <svg
+              class="w-16 h-16 text-gray-300 mx-auto mb-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+              ></path>
+            </svg>
+            <h3 class="text-lg font-medium text-gray-700 mb-2">
+              Tidak ada data users
+            </h3>
+            <p class="text-sm text-gray-500 mb-4">
+              Tambahkan user baru untuk mulai mengelola akses
+            </p>
+            <button
+              class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md transition duration-200 font-medium"
+              onclick="openModal('addUserModal')"
+            >
+              + Tambah User
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- Add User Modal -->
       <div
-        class="modal fade"
+        class="fixed inset-0 z-50 bg-black bg-opacity-50 modal-backdrop hidden"
         id="addUserModal"
-        tabindex="-1"
-        aria-labelledby="addUserModalLabel"
-        aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
+        <div class="flex items-center justify-center min-h-screen p-4">
+          <div
+            class="bg-white rounded-lg shadow-xl max-w-md w-full max-h-screen overflow-y-auto modal-content mx-4"
+          >
             <form th:action="@{/dashboard/users/add}" method="post">
-              <div class="modal-header">
-                <h5 class="modal-title" id="addUserModalLabel">Tambah User</h5>
+              <div
+                class="bg-gray-50 px-6 py-4 rounded-t-lg flex justify-between items-center sticky top-0"
+              >
+                <h5 class="text-lg font-semibold text-gray-800">
+                  Tambah User Baru
+                </h5>
                 <button
                   type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                  class="text-gray-500 hover:text-gray-700 transition duration-200 p-1"
+                  onclick="closeModal('addUserModal')"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    ></path>
+                  </svg>
+                </button>
               </div>
-              <div class="modal-body">
-                <div class="form-group mb-3">
-                  <label for="username">Username:</label>
+              <div class="p-6 space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2"
+                    >Username <span class="text-red-500">*</span></label
+                  >
                   <input
                     type="text"
-                    class="form-control"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                     name="username"
                     required
                     minlength="3"
+                    placeholder="Masukkan username"
                   />
                 </div>
-                <div class="form-group mb-3">
-                  <label for="password">Password:</label>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2"
+                    >Password <span class="text-red-500">*</span></label
+                  >
                   <input
                     type="password"
-                    class="form-control"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                     name="password"
                     required
                     minlength="8"
+                    placeholder="Masukkan password"
                   />
                 </div>
-                <div class="form-group mb-3">
-                  <label for="role">Role:</label>
-                  <select class="form-control" name="role" required>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2"
+                    >Role <span class="text-red-500">*</span></label
+                  >
+                  <select
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+                    name="role"
+                    required
+                  >
                     <option value="user">User</option>
                     <option value="admin">Admin</option>
                   </select>
                 </div>
               </div>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Simpan</button>
+              <div
+                class="bg-gray-50 px-6 py-4 rounded-b-lg flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3 sticky bottom-0"
+              >
                 <button
                   type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
+                  class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition duration-200 font-medium"
+                  onclick="closeModal('addUserModal')"
                 >
                   Batal
+                </button>
+                <button
+                  type="submit"
+                  class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition duration-200 font-medium"
+                >
+                  Simpan User
                 </button>
               </div>
             </form>
@@ -230,51 +551,74 @@
 
       <!-- Edit User Modal -->
       <div
-        class="modal fade"
+        class="fixed inset-0 z-50 bg-black bg-opacity-50 modal-backdrop hidden"
         id="editUserModal"
-        tabindex="-1"
-        aria-labelledby="editUserModalLabel"
-        aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
+        <div class="flex items-center justify-center min-h-screen p-4">
+          <div
+            class="bg-white rounded-lg shadow-xl max-w-md w-full max-h-screen overflow-y-auto modal-content mx-4"
+          >
             <form id="editUserForm" method="post">
-              <div class="modal-header">
-                <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+              <div
+                class="bg-gray-50 px-6 py-4 rounded-t-lg flex justify-between items-center sticky top-0"
+              >
+                <h5 class="text-lg font-semibold text-gray-800">Edit User</h5>
                 <button
                   type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                  class="text-gray-500 hover:text-gray-700 transition duration-200 p-1"
+                  onclick="closeModal('editUserModal')"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    ></path>
+                  </svg>
+                </button>
               </div>
-              <div class="modal-body">
-                <input type="hidden" id="editUserId" name="id" />
-                <div class="form-group mb-3">
-                  <label>Username:</label>
+              <div class="p-6 space-y-4">
+                <input type="hidden" id="editId" name="id" />
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2"
+                    >Username <span class="text-red-500">*</span></label
+                  >
                   <input
                     type="text"
-                    class="form-control"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                     id="editUsername"
                     name="username"
+                    required
                     minlength="3"
                   />
                 </div>
-                <div class="form-group mb-3">
-                  <label
-                    >Password Baru (kosongkan jika tidak ingin mengubah):</label
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2"
+                    >Password Baru
+                    <span class="text-gray-500 text-xs"
+                      >(Kosongkan jika tidak ingin mengubah)</span
+                    ></label
                   >
                   <input
                     type="password"
-                    class="form-control"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                     name="password"
                     minlength="8"
+                    placeholder="Masukkan password baru"
                   />
                 </div>
-                <div class="form-group mb-3">
-                  <label for="editRole">Role:</label>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2"
+                    >Role <span class="text-red-500">*</span></label
+                  >
                   <select
-                    class="form-control"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                     id="editRole"
                     name="role"
                     required
@@ -284,14 +628,21 @@
                   </select>
                 </div>
               </div>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Simpan</button>
+              <div
+                class="bg-gray-50 px-6 py-4 rounded-b-lg flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3 sticky bottom-0"
+              >
                 <button
                   type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
+                  class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition duration-200 font-medium"
+                  onclick="closeModal('editUserModal')"
                 >
                   Batal
+                </button>
+                <button
+                  type="submit"
+                  class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition duration-200 font-medium"
+                >
+                  Simpan Perubahan
                 </button>
               </div>
             </form>
@@ -299,42 +650,94 @@
         </div>
       </div>
 
-      <!-- Delete Confirmation Modal -->
+      <!-- Delete User Modal -->
       <div
-        class="modal fade"
+        class="fixed inset-0 z-50 bg-black bg-opacity-50 modal-backdrop hidden"
         id="deleteUserModal"
-        tabindex="-1"
-        aria-labelledby="deleteUserModalLabel"
-        aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <form id="deleteUserForm" method="post">
-              <div class="modal-header">
-                <h5 class="modal-title" id="deleteUserModalLabel">
+        <div class="flex items-center justify-center min-h-screen p-4">
+          <div
+            class="bg-white rounded-lg shadow-xl max-w-md w-full modal-content mx-4"
+          >
+            <form method="post" id="deleteUserForm">
+              <div
+                class="bg-gray-50 px-6 py-4 rounded-t-lg flex justify-between items-center"
+              >
+                <h5 class="text-lg font-semibold text-gray-800">
                   Konfirmasi Hapus
                 </h5>
                 <button
                   type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                  class="text-gray-500 hover:text-gray-700 transition duration-200 p-1"
+                  onclick="closeModal('deleteUserModal')"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    ></path>
+                  </svg>
+                </button>
               </div>
-              <div class="modal-body">
-                <p>
+              <div class="p-6">
+                <div class="flex items-center mb-4">
+                  <div
+                    class="flex-shrink-0 w-10 h-10 bg-red-100 rounded-full flex items-center justify-center"
+                  >
+                    <svg
+                      class="w-6 h-6 text-red-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div class="ml-4">
+                    <h3 class="text-lg font-medium text-gray-900">
+                      Hapus User
+                    </h3>
+                    <p class="text-sm text-gray-500">
+                      Tindakan ini tidak dapat dibatalkan
+                    </p>
+                  </div>
+                </div>
+                <p class="text-gray-700">
                   Apakah Anda yakin ingin menghapus user
-                  <strong id="deleteUsername"></strong>?
+                  <strong
+                    id="deleteUsername"
+                    class="text-red-600 font-semibold"
+                  ></strong
+                  >?
                 </p>
               </div>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-danger">Hapus</button>
+              <div
+                class="bg-gray-50 px-6 py-4 rounded-b-lg flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3"
+              >
                 <button
                   type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
+                  class="bg-gray-300 hover:bg-gray-400 text-gray-700 px-4 py-2 rounded transition duration-200 font-medium"
+                  onclick="closeModal('deleteUserModal')"
                 >
                   Batal
+                </button>
+                <button
+                  type="submit"
+                  class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition duration-200 font-medium"
+                >
+                  Ya, Hapus User
                 </button>
               </div>
             </form>
@@ -343,28 +746,101 @@
       </div>
 
       <script>
-        const editUserModal = document.getElementById("editUserModal");
-        editUserModal.addEventListener("show.bs.modal", function (event) {
-          const button = event.relatedTarget;
+        // Modal functions with animations
+        function openModal(modalId) {
+          const modal = document.getElementById(modalId);
+          const backdrop = modal;
+          const content = modal.querySelector(".modal-content");
+
+          modal.classList.remove("hidden");
+
+          // Force reflow
+          modal.offsetHeight;
+
+          backdrop.classList.add("show");
+          content.classList.add("show");
+        }
+
+        function closeModal(modalId) {
+          const modal = document.getElementById(modalId);
+          const backdrop = modal;
+          const content = modal.querySelector(".modal-content");
+
+          backdrop.classList.remove("show");
+          backdrop.classList.add("hide");
+          content.classList.remove("show");
+          content.classList.add("hide");
+
+          setTimeout(() => {
+            modal.classList.add("hidden");
+            backdrop.classList.remove("hide");
+            content.classList.remove("hide");
+          }, 300);
+        }
+
+        function openEditModal(button) {
           const id = button.getAttribute("data-id");
           const username = button.getAttribute("data-username");
           const role = button.getAttribute("data-role");
 
           document.getElementById("editUsername").value = username;
           document.getElementById("editRole").value = role;
+
           document.getElementById("editUserForm").action =
             `/dashboard/users/edit/${id}`;
-        });
+          openModal("editUserModal");
+        }
 
-        const deleteUserModal = document.getElementById("deleteUserModal");
-        deleteUserModal.addEventListener("show.bs.modal", function (event) {
-          const button = event.relatedTarget;
+        function openDeleteModal(button) {
           const id = button.getAttribute("data-id");
           const username = button.getAttribute("data-username");
 
-          document.getElementById("deleteUsername").textContent = username;
+          document.getElementById("deleteUsername").innerText = username;
           document.getElementById("deleteUserForm").action =
             `/dashboard/users/delete/${id}`;
+          openModal("deleteUserModal");
+        }
+
+        // Close modal on escape key
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape") {
+            const modals = [
+              "successModal",
+              "errorModal",
+              "addUserModal",
+              "editUserModal",
+              "deleteUserModal",
+            ];
+            modals.forEach((modalId) => {
+              const modal = document.getElementById(modalId);
+              if (modal && !modal.classList.contains("hidden")) {
+                closeModal(modalId);
+              }
+            });
+          }
+        });
+
+        // Close modal on backdrop click
+        document.addEventListener("click", function (event) {
+          if (event.target.classList.contains("modal-backdrop")) {
+            const modals = [
+              "successModal",
+              "errorModal",
+              "addUserModal",
+              "editUserModal",
+              "deleteUserModal",
+            ];
+            modals.forEach((modalId) => {
+              const modal = document.getElementById(modalId);
+              if (
+                modal &&
+                !modal.classList.contains("hidden") &&
+                event.target === modal
+              ) {
+                closeModal(modalId);
+              }
+            });
+          }
         });
 
         document.addEventListener("DOMContentLoaded", function () {
@@ -372,11 +848,11 @@
           const errorModalEl = document.getElementById("errorModal");
 
           if (successModalEl) {
-            new bootstrap.Modal(successModalEl).show();
+            openModal("successModal");
           }
 
           if (errorModalEl) {
-            new bootstrap.Modal(errorModalEl).show();
+            openModal("errorModal");
           }
         });
       </script>
