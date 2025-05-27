@@ -12,11 +12,15 @@
   </head>
   <th:block th:replace="${head}" />
   <body class="bg-gray-100 font-sans min-h-screen">
+    <div
+      id="blur-overlay"
+      class="fixed inset-0 bg-black bg-opacity-10 backdrop-blur-sm z-20 hidden transition-all duration-200"
+    ></div>
     <div class="flex">
       <!-- Sidebar - hidden on mobile by default -->
       <div
         id="sidebar"
-        class="bg-white w-0 lg:w-64 fixed inset-y-0 left-0 transform lg:transform-none lg:opacity-100 lg:translate-x-0 -translate-x-full transition duration-200 ease-in-out shadow-md z-10 overflow-y-auto"
+        class="bg-white w-0 lg:w-64 fixed inset-y-0 left-0 transform lg:transform-none lg:opacity-100 lg:translate-x-0 -translate-x-full transition duration-200 ease-in-out shadow-md z-30 overflow-y-auto"
       >
         <div class="flex flex-col h-full p-4">
           <div class="flex flex-col items-center mb-6">
@@ -66,8 +70,9 @@
         </div>
       </div>
 
-      <!-- Header -->
+      <!-- Header & Main wrapper for blur effect -->
       <div
+        id="main-content-wrapper"
         class="flex-1 transition-all duration-200 ease-in-out min-h-screen flex flex-col lg:ml-64"
       >
         <div
@@ -104,43 +109,59 @@
 
     <!-- JavaScript for mobile menu toggle -->
     <script>
-      document
-        .getElementById("menu-toggle")
-        .addEventListener("click", function () {
-          const sidebar = document.getElementById("sidebar");
-          sidebar.classList.toggle("-translate-x-full");
-          sidebar.classList.toggle("w-0");
-          sidebar.classList.toggle("w-64");
-        });
+      const blurOverlay = document.getElementById("blur-overlay");
+      const sidebar = document.getElementById("sidebar");
+      const menuToggle = document.getElementById("menu-toggle");
+      const mainContentWrapper = document.getElementById(
+        "main-content-wrapper",
+      );
 
+      function openSidebar() {
+        sidebar.classList.remove("-translate-x-full");
+        sidebar.classList.remove("w-0");
+        sidebar.classList.add("w-64");
+        blurOverlay.classList.remove("hidden");
+        mainContentWrapper.classList.add("backdrop-blur-sm");
+      }
+      function closeSidebar() {
+        sidebar.classList.add("-translate-x-full");
+        sidebar.classList.add("w-0");
+        sidebar.classList.remove("w-64");
+        blurOverlay.classList.add("hidden");
+        mainContentWrapper.classList.remove("backdrop-blur-sm");
+      }
+      menuToggle.addEventListener("click", function (e) {
+        e.stopPropagation();
+        if (sidebar.classList.contains("-translate-x-full")) {
+          openSidebar();
+        } else {
+          closeSidebar();
+        }
+      });
+      blurOverlay.addEventListener("click", function () {
+        closeSidebar();
+      });
       // Close sidebar when clicking outside (on mobile)
       document.addEventListener("click", function (event) {
-        const sidebar = document.getElementById("sidebar");
-        const menuToggle = document.getElementById("menu-toggle");
-
         if (
           window.innerWidth < 1024 &&
           !sidebar.contains(event.target) &&
           !menuToggle.contains(event.target) &&
           !sidebar.classList.contains("-translate-x-full")
         ) {
-          sidebar.classList.add("-translate-x-full");
-          sidebar.classList.add("w-0");
-          sidebar.classList.remove("w-64");
+          closeSidebar();
         }
       });
-
       // Ensure sidebar is properly shown/hidden on resize
       window.addEventListener("resize", function () {
-        const sidebar = document.getElementById("sidebar");
         if (window.innerWidth >= 1024) {
           sidebar.classList.remove("-translate-x-full");
           sidebar.classList.remove("w-0");
           sidebar.classList.add("w-64");
+          blurOverlay.classList.add("hidden");
+          mainContentWrapper.classList.remove("backdrop-blur-sm");
         } else {
-          sidebar.classList.add("-translate-x-full");
-          sidebar.classList.add("w-0");
-          sidebar.classList.remove("w-64");
+          closeSidebar();
         }
       });
     </script>
