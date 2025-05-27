@@ -1,5 +1,6 @@
 package com.teamtwo.stocko_supply.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,6 +16,10 @@ import jakarta.servlet.http.HttpServletRequest;
 @Service
 public class BarangService {
     private BarangRepository barangRepository;
+
+    LocalDate today = LocalDate.now();
+    LocalDateTime start = today.atStartOfDay();
+    LocalDateTime end = today.plusDays(1).atStartOfDay().minusNanos(1);
 
     @Autowired
     public BarangService(BarangRepository barangRepository) {
@@ -38,6 +43,21 @@ public class BarangService {
     @Transactional(readOnly = true)
     public List<Barang> getAllBarang() {
         return barangRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public long countAllBarang() {
+        return barangRepository.count();
+    }
+
+    @Transactional(readOnly = true)
+    public long countBarangHariIni() {
+        return barangRepository.countByMasukBetween(start, end);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Barang> getBarangHariIni() {
+        return barangRepository.findByMasukBetween(start, end);
     }
 
     @Transactional(readOnly = true)

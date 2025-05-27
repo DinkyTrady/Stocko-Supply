@@ -54,6 +54,11 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
+    public long countAllUsers() {
+        return userRepository.count();
+    }
+
+    @Transactional(readOnly = true)
     public User getUserById(Long id) {
         return userRepository.findById(id);
     }
