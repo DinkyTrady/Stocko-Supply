@@ -1,6 +1,6 @@
 package com.teamtwo.stocko_supply.models;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,16 +33,16 @@ public class Barang {
     private String status;
 
     @Column(name = "masuk")
-    private ZonedDateTime masuk;
+    private LocalDateTime masuk;
 
     @Column(name = "barang_update")
-    private ZonedDateTime barangUpdate;
+    private LocalDateTime barangUpdate;
 
     public Barang() {
     }
 
     public Barang(String nama, String kategoriBarang, Integer jumlahBarang, String keteranganBarang,
-            ZonedDateTime masuk) {
+            LocalDateTime masuk) {
         this.nama = nama;
         this.kategori = kategoriBarang;
         this.keterangan = keteranganBarang;
@@ -90,15 +90,15 @@ public class Barang {
         return status;
     }
 
-    public void setMasuk(ZonedDateTime masuk) {
+    public void setMasuk(LocalDateTime masuk) {
         this.masuk = masuk;
     }
 
-    public ZonedDateTime getMasuk() {
+    public LocalDateTime getMasuk() {
         return masuk;
     }
 
-    public ZonedDateTime getBarangUpdate() {
+    public LocalDateTime getBarangUpdate() {
         return barangUpdate;
     }
 }

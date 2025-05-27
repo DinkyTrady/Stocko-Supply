@@ -1,6 +1,6 @@
 package com.teamtwo.stocko_supply.service;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class BarangService {
 
     @Transactional
     public boolean addNewBarang(String namaBarang, String kategoriBarang, Integer jumlahBarang,
-            String keteranganBarang, ZonedDateTime masuk) {
+            String keteranganBarang, LocalDateTime masuk) {
         Barang barangExist = barangRepository.findByNama(namaBarang);
         if (barangExist != null) {
             return false;

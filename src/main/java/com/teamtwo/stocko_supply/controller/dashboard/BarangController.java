@@ -1,8 +1,8 @@
 package com.teamtwo.stocko_supply.controller.dashboard;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,7 +60,7 @@ public class BarangController {
         model.addAttribute("currentUser", currentUser);
 
         if (barangService.addNewBarang(nama, kategori, jumlah, keterangan,
-                ZonedDateTime.now(ZoneId.of("Asia/Jakarta")))) {
+                LocalDateTime.now())) {
             redirectAttributes.addFlashAttribute("success", "Barang berhasil diperbarui");
         } else {
             redirectAttributes.addFlashAttribute("error", "Gagal memperbarui barang!");
